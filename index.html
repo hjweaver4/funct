@@ -15,10 +15,10 @@
   <style>
   div.absolute {
     position: absolute;
-    left: 10px;
-    right: 0px;
-    top: 10px;
-    border: 3px solid #73AD21;
+    left: 10%;
+    right: 0%;
+    top: 10%;
+    border: 3% solid #73AD21;
   }
   </style>
 </head>
@@ -67,7 +67,7 @@ function createTrials(data, tabletop) {
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
-  var imageStop='.jpg"  title = "" width="360" height="360">'
+  var imageStop='.jpg"  title = "" height="33%" maintain_aspect_ratio=true>'
 
 
   lwl_stimuli = []
@@ -91,10 +91,10 @@ function createTrials(data, tabletop) {
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
     trial_duration: 3500,
-    margin_top: ['300px','300px'],
-    margin_bottom: ['0px','0px'],
-    margin_left: ['0px','360px'],
-    margin_right: ['360px','0px'],
+    margin_top: ['10%','10%'],
+    margin_bottom: ['0%','0%'],
+    margin_left: ['0%','20%'],
+    margin_right: ['20%','0%'],
     timeline: lwl_stimuli,
 	  response_possible: false,
     data: jsPsych.timelineVariable('data'),
