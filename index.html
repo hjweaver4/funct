@@ -67,7 +67,7 @@ function createTrials(data, tabletop) {
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
-  var imageStop='.jpg"  title = "" width="300" height="250">'
+  var imageStop='.jpg"  title = "" width="350" height="350">'
 
 
   lwl_stimuli = []
@@ -90,9 +90,9 @@ function createTrials(data, tabletop) {
 
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
-    trial_duration: 4000,
+    trial_duration: 3500,
     margin_top: ['300px','300px'],
-    margin_bottom: ['0px','0px'],
+    margin_bottom: ['300px','300px'],
     margin_left: ['0px','250px'],
     margin_right: ['250px','0px'],
     timeline: lwl_stimuli,
