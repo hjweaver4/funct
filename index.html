@@ -41,11 +41,12 @@ var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
                    simpleSheet: false })
 
 /* read from a public spreadsheet for video trials */
+/*
 var publicSpreadsheetUrl_plp = 'https://docs.google.com/spreadsheets/d/13byAZJymu1H_-3Que5dEN1tW-3E2mh1vMBh-6E3vTbg/edit?usp=sharing';
 
 var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
                    callback: startExperimentPLP,
-                   simpleSheet: false })
+                   simpleSheet: false }) */
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
@@ -232,9 +233,6 @@ var preload_audio  = [];
 for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
-/*
-
-*/
 
 function startExperimentLWL(data_lwl, tabletop_lwl) {
 	createLWLTrials(data_lwl,tabletop_lwl);
@@ -244,7 +242,7 @@ jsPsych.init({
   preload_images:preload_images,
 	default_iti: 300,
   on_finish: function() {
-    jsPsych.data.displayData();
+    jsPsych.data_lwl.displayData();
   }
 });
 };
