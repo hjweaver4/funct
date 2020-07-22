@@ -33,36 +33,43 @@
 var subject_id = prompt("Enter subject id", "test");
 var lwl_trial_order = prompt("Order (1 or 2)","1");
 
-/* read from a public spreadsheet */
+/* read from a public spreadsheet for LWL trials */
 var publicSpreadsheetUrl_lwl = 'https://docs.google.com/spreadsheets/d/1hMjDFj3WZIpIq6BZ0CjtqxWF0s4FZ4G4SqMKE99WiaQ/edit?usp=sharing';
 
 var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
-                   callback: startExperiment,
+                   callback: startExperimentLWL,
                    simpleSheet: false })
 
+/* read from a public spreadsheet for video trials */
+var publicSpreadsheetUrl_plp = 'https://docs.google.com/spreadsheets/d/13byAZJymu1H_-3Que5dEN1tW-3E2mh1vMBh-6E3vTbg/edit?usp=sharing';
 
+var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
+                   callback: startExperimentPLP,
+                   simpleSheet: false })
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
 document.body.style.backgroundPosition = "top";
 document.body.style.backgroundRepeat = "no-repeat";
 
-
+/* create experiment timeline*/
 var timeline = []
 
-function createTrials(data_lwl, tabletop_lwl) {
+/* extract the elements from the CSV */
+function createLWLTrials(data_lwl, tabletop_lwl) {
 
   data_lwl = data_lwl['Order_'+lwl_trial_order]['elements']
   console.log(data_lwl);
 
-  var welcome = {
+/* display start screen */
+  var welcome_LWL = {
     type: "fullscreen",
-    message: "",
+    message: "The study is loaded and ready to begin. Please wait for the experimenter for instructions.",
     button_label: "Start",
     delay_after: 250
   }
 
-  timeline.push(welcome);
+  timeline.push(welcome_LWL);
 
   var expLength = data_lwl.length;
   var audioExt="stimuli/sounds/"
@@ -71,7 +78,7 @@ function createTrials(data_lwl, tabletop_lwl) {
 
 
   lwl_stimuli = []
-
+/* set up for a LWL trial with audio and 2 images */
   for (var i = 0; i < expLength; i++) {
     lwl_stimuli.push(
     {stimulus: audioExt+data_lwl[i]['auditory_stimulus']+".wav",
@@ -87,14 +94,14 @@ function createTrials(data_lwl, tabletop_lwl) {
     })
   }
 
-
+/* define the location of the stimuli */
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
     trial_duration: 3500,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
     margin_left: ['0px','250px'],
-    margin_right: ['250px','0%'],
+    margin_right: ['250px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
     data: jsPsych.timelineVariable('data_lwl'),
@@ -105,6 +112,62 @@ function createTrials(data_lwl, tabletop_lwl) {
   }
 
   timeline.push(lwl_trials);
+
+/* begin PLP experiment structure
+  function createPLPTrials(data_plp, tabletop_plp) {
+
+    data_plp = data_plp['Order_'+plp_trial_order]['elements']
+    console.log(data_plp);
+
+    var welcome_PLP = {
+      type: "fullscreen",
+      message: "Please take a short rest if you or your child need one.",
+      button_label: "Start",
+      delay_after: 250
+    }
+
+    timeline.push(welcome_PLP);
+
+    var expLength = data_plp.length;
+    var audioExt="stimuli/sounds/"
+    var videoStart='<img src= "stimuli/videos/'
+    var videoStop='.mp4"  title = "" width="250" height="250">'
+
+
+    plp_stimuli = []
+
+    for (var i = 0; i < expLength; i++) {
+      plp_stimuli.push(
+      {stimulus: audioExt+data_plp[i]['auditory_stimulus']+".wav",
+      choices:[videoStart+data_plp[i]['left_video']+videoStop, videoStart+data_plp[i]['right_video']+videoStop],
+      set_background:data_plp[i]['background'],
+      data:{
+  		left_video: data_plp[i]['left_video'],
+  		right_video: data_plp[i]['right_video'],
+  		atypical_side:data_plp[i]['atypical_side'],
+  		correct_response:data_plp[i]['correct_response'],
+  		background:data_plp[i]['background']}
+      })
+    }
+
+
+    var plp_trials = {
+      type: 'audio-button-response-flexiblelocations',
+      trial_duration: 6500,
+      margin_top: ['300px','300px'],
+      margin_bottom: ['0px','0px'],
+      margin_left: ['0px','250px'],
+      margin_right: ['250px','0px'],
+      timeline: plp_stimuli,
+  	  response_possible: false,
+      data: jsPsych.timelineVariable('data_plp'),
+  	  response_ends_trial: false,
+      on_finish: function(data_plp) {
+        data_plp.correct = data_plp.button_pressed == data_plp.correct_response;
+      }
+    }
+
+    timeline.push(plp_trials); */
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -169,10 +232,12 @@ var preload_audio  = [];
 for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
+/*
 
+*/
 
-function startExperiment(data_lwl, tabletop_lwl) {
-	createTrials(data_lwl,tabletop_lwl);
+function startExperimentLWL(data_lwl, tabletop_lwl) {
+	createLWLTrials(data_lwl,tabletop_lwl);
 jsPsych.init({
   timeline: timeline,
   preload_audio:preload_audio,
