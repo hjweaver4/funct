@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Funct LWL</title>
+  <title>Funct Experiment</title>
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
   <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
@@ -23,7 +23,7 @@
   </style>
 </head>
 <body>
-  <div id="funct-lwl"></div>
+  <div id="funct-study"></div>
 </body>
 
 <script>
@@ -31,12 +31,12 @@
 
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
-var trial_order = prompt("Order (1 or 2)","1");
+var lwl_trial_order = prompt("Order (1 or 2)","1");
 
 /* read from a public spreadsheet */
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1hMjDFj3WZIpIq6BZ0CjtqxWF0s4FZ4G4SqMKE99WiaQ/edit?usp=sharing';
+var publicSpreadsheetUrl_lwl = 'https://docs.google.com/spreadsheets/d/1hMjDFj3WZIpIq6BZ0CjtqxWF0s4FZ4G4SqMKE99WiaQ/edit?usp=sharing';
 
-var tabletop = Tabletop.init( { key: publicSpreadsheetUrl,
+var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
                    callback: startExperiment,
                    simpleSheet: false })
 
@@ -50,10 +50,10 @@ document.body.style.backgroundRepeat = "no-repeat";
 
 var timeline = []
 
-function createTrials(data, tabletop) {
+function createTrials(data_lwl, tabletop_lwl) {
 
-  data = data['Order_'+trial_order]['elements']
-  console.log(data);
+  data_lwl = data_lwl['Order_'+lwl_trial_order]['elements']
+  console.log(data_lwl);
 
   var welcome = {
     type: "fullscreen",
@@ -64,7 +64,7 @@ function createTrials(data, tabletop) {
 
   timeline.push(welcome);
 
-  var expLength = data.length;
+  var expLength = data_lwl.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
   var imageStop='.jpg"  title = "" width="250" height="250">'
@@ -74,16 +74,16 @@ function createTrials(data, tabletop) {
 
   for (var i = 0; i < expLength; i++) {
     lwl_stimuli.push(
-    {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
-    choices:[imageStart+data[i]['left_image']+imageStop, imageStart+data[i]['right_image']+imageStop],
-    set_background:data[i]['background'],
+    {stimulus: audioExt+data_lwl[i]['auditory_stimulus']+".wav",
+    choices:[imageStart+data_lwl[i]['left_image']+imageStop, imageStart+data_lwl[i]['right_image']+imageStop],
+    set_background:data_lwl[i]['background'],
     data:{
-		left_image: data[i]['left_image'],
-		right_image: data[i]['right_image'],
-		target_label: data[i]['target_label'],
-		target_side:data[i]['target_side'],
-		correct_response:data[i]['correct_response'],
-		background:data[i]['background']}
+		left_image: data_lwl[i]['left_image'],
+		right_image: data_lwl[i]['right_image'],
+		target_label: data_lwl[i]['target_label'],
+		target_side:data_lwl[i]['target_side'],
+		correct_response:data_lwl[i]['correct_response'],
+		background:data_lwl[i]['background']}
     })
   }
 
@@ -97,10 +97,10 @@ function createTrials(data, tabletop) {
     margin_right: ['250px','0%'],
     timeline: lwl_stimuli,
 	  response_possible: false,
-    data: jsPsych.timelineVariable('data'),
+    data: jsPsych.timelineVariable('data_lwl'),
 	  response_ends_trial: false,
-    on_finish: function(data) {
-      data.correct = data.button_pressed == data.correct_response;
+    on_finish: function(data_lwl) {
+      data_lwl.correct = data_lwl.button_pressed == data_lwl.correct_response;
     }
   }
 
@@ -171,15 +171,15 @@ for (var l = 0; l < preload_audio.length; l++) {
 };
 
 
-function startExperiment(data, tabletop) {
-	createTrials(data,tabletop);
+function startExperiment(data_lwl, tabletop_lwl) {
+	createTrials(data_lwl,tabletop_lwl);
 jsPsych.init({
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
 	default_iti: 300,
   on_finish: function() {
-    jsPsych.data.displayData();
+    jsPsych.data_lwl.displayData();
   }
 });
 };
