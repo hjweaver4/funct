@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+timeline<!DOCTYPE html>
 <html>
 
 <head>
@@ -41,12 +41,11 @@ var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
                    simpleSheet: false })
 
 /* read from a public spreadsheet for video trials */
-/*
 var publicSpreadsheetUrl_plp = 'https://docs.google.com/spreadsheets/d/13byAZJymu1H_-3Que5dEN1tW-3E2mh1vMBh-6E3vTbg/edit?usp=sharing';
 
 var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
                    callback: startExperimentPLP,
-                   simpleSheet: false }) */
+                   simpleSheet: false })
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
@@ -105,7 +104,7 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
     margin_right: ['250px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
-    data: jsPsych.timelineVariable('data_lwl'),
+    data: jsPsych.Variable('data_lwl'),
 	  response_ends_trial: false,
     on_finish: function(data_lwl) {
       data_lwl.correct = data_lwl.button_pressed == data_lwl.correct_response;
@@ -114,7 +113,8 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
 
   timeline.push(lwl_trials);
 
-/* begin PLP experiment structure
+/* begin PLP experiment structure */
+
   function createPLPTrials(data_plp, tabletop_plp) {
 
     data_plp = data_plp['Order_'+plp_trial_order]['elements']
@@ -132,29 +132,29 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
     var expLength = data_plp.length;
     var audioExt="stimuli/sounds/"
     var videoStart='<img src= "stimuli/videos/'
-    var videoStop='.mp4"  title = "" width="250" height="250">'
+    var videoStop='.mp4"  title = "" width="384" height="216">'
 
 
     plp_stimuli = []
 
-    for (var i = 0; i < expLength; i++) {
+    for (var  = 0; h < expLength; h++) {
       plp_stimuli.push(
-      {stimulus: audioExt+data_plp[i]['auditory_stimulus']+".wav",
-      choices:[videoStart+data_plp[i]['left_video']+videoStop, videoStart+data_plp[i]['right_video']+videoStop],
-      set_background:data_plp[i]['background'],
+      {stimulus: audioExt+data_plp[h]['auditory_stimulus']+".wav",
+      choices:[videoStart+data_plp[h]['left_video']+videoStop, videoStart+data_plp[h]['right_video']+videoStop],
+      set_background:data_plp[h]['background'],
       data:{
-  		left_video: data_plp[i]['left_video'],
-  		right_video: data_plp[i]['right_video'],
-  		atypical_side:data_plp[i]['atypical_side'],
-  		correct_response:data_plp[i]['correct_response'],
-  		background:data_plp[i]['background']}
+  		left_video: data_plp[h]['left_video'],
+  		right_video: data_plp[h]['right_video'],
+  		atypical_side:data_plp[h]['atypical_side'],
+  		correct_response:data_plp[h]['correct_response'],
+  		background:data_plp[h]['background']}
       })
     }
 
 
     var plp_trials = {
       type: 'audio-button-response-flexiblelocations',
-      trial_duration: 6500,
+      trial_duration: 6000,
       margin_top: ['300px','300px'],
       margin_bottom: ['0px','0px'],
       margin_left: ['0px','250px'],
@@ -168,7 +168,7 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
       }
     }
 
-    timeline.push(plp_trials); */
+    timeline.push(plp_trials);
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -213,6 +213,16 @@ for (var k = 0; k < images.length; k++) {
 };
 
 var audio = [
+  "acrossTheUniverse000.wav",
+  "acrossTheUniverse001.wav",
+  "acrossTheUniverse002.wav",
+  "acrossTheUniverse003.wav",
+  "acrossTheUniverse004.wav",
+  "acrossTheUniverse005.wav",
+  "acrossTheUniverse006.wav",
+  "acrossTheUniverse007.wav",
+  "acrossTheUniverse008.wav",
+  "acrossTheUniverse009.wav",
 	"AG.wav",
   "apple_find.wav",
   "apple_look.wav",
@@ -225,7 +235,17 @@ var audio = [
   "crayon_where.wav",
   "toothbrush_find.wav",
   "toothbrush_look.wav",
-  "toothbrush_where.wav"
+  "toothbrush_where.wav",
+  "yellow000.wav",
+  "yellow001.wav",
+  "yellow002.wav",
+  "yellow003.wav",
+  "yellow004.wav",
+  "yellow005.wav",
+  "yellow006.wav",
+  "yellow007.wav",
+  "yellow008.wav",
+  "yellow009.wav"
 ];
 
 var preload_audio  = [];
@@ -234,12 +254,36 @@ for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
 
+var videoExt = 'stimuli/videos/'
+
+
+var videos = [
+]
+
+var preload_videos=[];
+
+for (var m = 0; m < videos.length; m++) {
+	preload_videos.push(videoExt+videos[m]);
+};
+
 function startExperimentLWL(data_lwl, tabletop_lwl) {
 	createLWLTrials(data_lwl,tabletop_lwl);
 jsPsych.init({
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
+	default_iti: 300,
+  on_finish: function() {
+    jsPsych.data.displayData();
+  }
+});
+};
+function startExperimentPLP(data_plp, tabletop_plp) {
+	createPLPTrials(data_plp,tabletop_plp);
+jsPsych.init({
+  timeline: timeline,
+  preload_audio:preload_audio,
+  preload_videos:preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
