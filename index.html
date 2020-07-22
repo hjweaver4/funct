@@ -67,7 +67,7 @@ function createTrials(data, tabletop) {
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
-  var imageStop='.jpg"  title = "" width="400" height="400">'
+  var imageStop='.jpg"  title = "" width="300" height="250">'
 
 
   lwl_stimuli = []
@@ -90,15 +90,15 @@ function createTrials(data, tabletop) {
 
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
+    trial_duration: 4000,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
-    margin_left: ['0px','200px'],
-    margin_right: ['89px','0px'],
+    margin_left: ['0px','250px'],
+    margin_right: ['250px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
     data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-	  trial_duration: 4000,
     on_finish: function(data) {
       data.correct = data.button_pressed == data.correct_response;
     }
