@@ -56,7 +56,7 @@ Papa.parse(publicSpreadsheetUrl,{
   complete: function(results) {
     var data = results.data
     console.log(data)
-    startExperiment(data); //don't start experiment until initializes until the start function begins
+    startExperiment(data); //don't start experiment until the spreadsheet is downloaded
   }
 })
 
@@ -86,6 +86,8 @@ function createTrials(data) {
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
   var imageStop='.jpg"  title = "" width="400" height="400">'
+  var videoStart = '<video src = "stimuli/videos/'
+  var videoStop = '.mp4" title = "" width="400">'
 
 
   lwl_stimuli = []
@@ -108,7 +110,7 @@ function createTrials(data) {
 /* define the location of the stimuli */
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
-    trial_duration: 10000,
+    trial_duration: 3500,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
     margin_left: ['0px','200px'],
@@ -124,62 +126,16 @@ function createTrials(data) {
 
   timeline.push(lwl_trials);
 
-/* begin PLP experiment structure */
-
-  /*function createPLPTrials(data_plp, tabletop_plp) {
-
-    data_plp = data_plp['Order_'+plp_trial_order]['elements']
-    console.log(data_plp);
-
-    var welcome_PLP = {
-      type: "fullscreen",
-      message: "Please take a short rest if you or your child need one.",
-      button_label: "Start",
-      delay_after: 250
-    }
-
-    timeline.push(welcome_PLP);
-
-    var expLength = data_plp.length;
-    var audioExt="stimuli/sounds/"
-    var videoStart='<img src= "stimuli/videos/'
-    var videoStop='.mp4"  title = "" width="384" height="216">'
-
-
-    plp_stimuli = []
-
-    for (var  = 0; h < expLength; h++) {
-      plp_stimuli.push(
-      {stimulus: audioExt+data_plp[h]['auditory_stimulus']+".wav",
-      choices:[videoStart+data_plp[h]['left_video']+videoStop, videoStart+data_plp[h]['right_video']+videoStop],
-      set_background:data_plp[h]['background'],
-      data:{
-  		left_video: data_plp[h]['left_video'],
-  		right_video: data_plp[h]['right_video'],
-  		atypical_side:data_plp[h]['atypical_side'],
-  		correct_response:data_plp[h]['correct_response'],
-  		background:data_plp[h]['background']}
-      })
-    }
-
-
-    var plp_trials = {
-      type: 'audio-button-response-flexiblelocations',
-      trial_duration: 6000,
-      margin_top: ['300px','300px'],
-      margin_bottom: ['0px','0px'],
-      margin_left: ['0px','250px'],
-      margin_right: ['250px','0px'],
-      timeline: plp_stimuli,
-  	  response_possible: false,
-      data: jsPsych.timelineVariable('data_plp'),
-  	  response_ends_trial: false,
-      on_finish: function(data_plp) {
-        data_plp.correct = data_plp.button_pressed == data_plp.correct_response;
-      }
-    }
-
-    timeline.push(plp_trials);*/
+  var plp_trial = {
+    type: 'video-keyboard-response',
+    sources:[
+      'videos/apple_atypical.mp4',
+      'videos/apple_typical.mp4'
+    ],
+    choices:['videos/apple_atypical.mp4',
+    'videos/apple_typical.mp4']
+  }
+  timeline.push(plptrial);
 
   var fullscreen_exit = {
     type: 'fullscreen',
