@@ -9,7 +9,7 @@ timeline<!DOCTYPE html>
   <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+  <script type="text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
   <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css",type="text/css"> </link>
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
@@ -34,18 +34,30 @@ var subject_id = prompt("Enter subject id", "test");
 var lwl_trial_order = prompt("Order (1 or 2)","1");
 
 /* read from a public spreadsheet for LWL trials */
-var publicSpreadsheetUrl_lwl = 'https://docs.google.com/spreadsheets/d/1hMjDFj3WZIpIq6BZ0CjtqxWF0s4FZ4G4SqMKE99WiaQ/edit?usp=sharing';
-
+var publicSpreadsheetUrl_lwl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
+/*
 var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
                    callback: startExperimentLWL,
-                   simpleSheet: false })
+                   simpleSheet: false }) */
 
 /* read from a public spreadsheet for video trials */
+/*
 var publicSpreadsheetUrl_plp = 'https://docs.google.com/spreadsheets/d/13byAZJymu1H_-3Que5dEN1tW-3E2mh1vMBh-6E3vTbg/edit?usp=sharing';
 
 var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
                    callback: startExperimentPLP,
-                   simpleSheet: false })
+                   simpleSheet: false })*/
+
+Papa.parse(publicSpreadsheetUrl_lwl,{
+  download: true,
+  header: true,
+  dynamicTyping: true,
+  complete: function(results) {
+    var data = results.data
+    console.log(data)
+    startExperiment(data);
+  }
+})
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
@@ -56,22 +68,20 @@ document.body.style.backgroundRepeat = "no-repeat";
 var timeline = []
 
 /* extract the elements from the CSV */
-function createLWLTrials(data_lwl, tabletop_lwl) {
-
-  data_lwl = data_lwl['Order_'+lwl_trial_order]['elements']
+function createTrials(data) {
   console.log(data_lwl);
 
 /* display start screen */
-  var welcome_LWL = {
+  var welcome = {
     type: "fullscreen",
-    message: "The study is loaded and ready to begin. Please wait for the experimenter for instructions.",
+    message: "",
     button_label: "Start",
     delay_after: 250
   }
 
-  timeline.push(welcome_LWL);
+  timeline.push(welcome);
 
-  var expLength = data_lwl.length;
+  var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
   var imageStop='.jpg"  title = "" width="250" height="250">'
@@ -81,16 +91,16 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
 /* set up for a LWL trial with audio and 2 images */
   for (var i = 0; i < expLength; i++) {
     lwl_stimuli.push(
-    {stimulus: audioExt+data_lwl[i]['auditory_stimulus']+".wav",
-    choices:[imageStart+data_lwl[i]['left_image']+imageStop, imageStart+data_lwl[i]['right_image']+imageStop],
-    set_background:data_lwl[i]['background'],
+    {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
+    choices:[imageStart+data[i]['left_image']+imageStop, imageStart+data[i]['right_image']+imageStop],
+    set_background:data[i]['background'],
     data:{
-		left_image: data_lwl[i]['left_image'],
-		right_image: data_lwl[i]['right_image'],
-		target_label: data_lwl[i]['target_label'],
-		target_side:data_lwl[i]['target_side'],
-		correct_response:data_lwl[i]['correct_response'],
-		background:data_lwl[i]['background']}
+		left_image: data[i]['left_image'],
+		right_image: data[i]['right_image'],
+		target_label: data[i]['target_label'],
+		target_side:data[i]['target_side'],
+		correct_response:data[i]['correct_response'],
+		background:data[i]['background']}
     })
   }
 
@@ -104,10 +114,10 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
     margin_right: ['250px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
-    data: jsPsych.Variable('data_lwl'),
+    data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-    on_finish: function(data_lwl) {
-      data_lwl.correct = data_lwl.button_pressed == data_lwl.correct_response;
+    on_finish: function(data) {
+      data.correct = data.button_pressed == data.correct_response;
     }
   }
 
@@ -115,7 +125,7 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
 
 /* begin PLP experiment structure */
 
-  function createPLPTrials(data_plp, tabletop_plp) {
+  /*function createPLPTrials(data_plp, tabletop_plp) {
 
     data_plp = data_plp['Order_'+plp_trial_order]['elements']
     console.log(data_plp);
@@ -168,7 +178,7 @@ function createLWLTrials(data_lwl, tabletop_lwl) {
       }
     }
 
-    timeline.push(plp_trials);
+    timeline.push(plp_trials);*/
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -254,7 +264,7 @@ for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
 
-var videoExt = 'stimuli/videos/'
+/*var videoExt = 'stimuli/videos/'
 
 
 var videos = [
@@ -264,10 +274,10 @@ var preload_videos=[];
 
 for (var m = 0; m < videos.length; m++) {
 	preload_videos.push(videoExt+videos[m]);
-};
+};*/
 
-function startExperimentLWL(data_lwl, tabletop_lwl) {
-	createLWLTrials(data_lwl,tabletop_lwl);
+function startExperiment(data) {
+	createTrials(data);
 jsPsych.init({
   timeline: timeline,
   preload_audio:preload_audio,
@@ -278,7 +288,8 @@ jsPsych.init({
   }
 });
 };
-function startExperimentPLP(data_plp, tabletop_plp) {
+
+/*function startExperimentPLP(data_plp, tabletop_plp) {
 	createPLPTrials(data_plp,tabletop_plp);
 jsPsych.init({
   timeline: timeline,
@@ -289,7 +300,7 @@ jsPsych.init({
     jsPsych.data.displayData();
   }
 });
-};
+};*/
 
 /*
 function save_data(experiment, version,identifier, data){
