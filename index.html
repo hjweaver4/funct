@@ -9,7 +9,7 @@ timeline<!DOCTYPE html>
   <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
-  <script type="text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
   <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css",type="text/css"> </link>
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
@@ -31,10 +31,10 @@ timeline<!DOCTYPE html>
 
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
-var lwl_trial_order = prompt("Order (1 or 2)","1");
+var trial_order = prompt("Order (1 or 2)","1");
 
 /* read from a public spreadsheet for LWL trials */
-var publicSpreadsheetUrl_lwl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
+var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
 /*
 var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
                    callback: startExperimentLWL,
@@ -48,7 +48,7 @@ var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
                    callback: startExperimentPLP,
                    simpleSheet: false })*/
 
-Papa.parse(publicSpreadsheetUrl_lwl,{
+Papa.parse(publicSpreadsheetUrl,{
   download: true,
   header: true,
   dynamicTyping: true,
