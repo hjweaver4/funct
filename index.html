@@ -32,14 +32,14 @@
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
 var lwl_order = prompt("Order (1 or 2)","1");
-var plp_order = prompt("Order(1 or 2)","1");
+//var plp_order = prompt("Order(1 or 2)","1");
 
 // read from a public spreadsheet for LWL trials
 // use the publish link NOT the sharing link
 var lwl_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
 
 // read from a public spreadsheet for video trials
-var plp_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?output=csv';
+///var plp_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?output=csv';
 
 
 //lwl orders
@@ -50,12 +50,12 @@ Papa.parse(lwl_publicSpreadsheetUrl,{
   complete: function(results) {
     var lwl_data = results.lwl_data
     console.log(lwl_data)
-    startExperiment(); //don't start experiment until the spreadsheet is downloaded
+    startExperiment(lwl_data); //don't start experiment until the spreadsheet is downloaded
   }
 })
 
 //plp orders
-Papa.parse(plp_publicSpreadsheetUrl,{
+/*Papa.parse(plp_publicSpreadsheetUrl,{
   download: true,
   header: true,
   dynamicTyping: true,
@@ -64,7 +64,7 @@ Papa.parse(plp_publicSpreadsheetUrl,{
     console.log(plp_data)
     startExperiment(); //don't start experiment until the spreadsheet is downloaded
   }
-})
+})*/
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
@@ -133,6 +133,14 @@ function createTrials(lwl_data) {
 
   timeline.push(lwl_trials);
 
+  var fullscreen_exit = {
+    type: 'fullscreen',
+    fullscreen_mode: false
+  }
+  timeline.push(fullscreen_exit)
+
+};
+
   // create plp trials with videos
 /* plp_stimuli = []
 //set up for a LWL trial with audio and 2 images
@@ -175,7 +183,7 @@ function createTrials(lwl_data) {
   }
   timeline.push(fullscreen_exit)*/
 };
-
+/*
 function createTrials(plp_data) {
   console.log(plp_data);
 
@@ -195,7 +203,7 @@ function createTrials(plp_data) {
 
     // create plp trials with videos
     plp_stimuli = []
-  /* set up for a LWL trial with audio and 2 images */
+///set up for a LWL trial with audio and 2 images
     for (var p = 0; p < plpExpLength; p++) {
       plp_stimuli.push(
       {stimulus: audioExt+plp_data[p]['auditory_stimulus']+".wav",
@@ -210,7 +218,7 @@ function createTrials(plp_data) {
       })
     }
 
-  /* define the location of the stimuli */
+  //define the location of the stimuli
     var plp_trials = {
       type: 'audio-button-response-flexiblelocations',
       trial_duration: 6500,
@@ -235,7 +243,7 @@ function createTrials(plp_data) {
     }
     timeline.push(fullscreen_exit)
 
-};
+};*/
 
 
 var imageExt = 'stimuli/images/'
@@ -314,6 +322,7 @@ for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
 
+/*
 var videoExt = 'stimuli/videos/'
 
 
@@ -336,20 +345,20 @@ var preload_videos=[];
 
 for (var m = 0; m < videos.length; m++) {
 	preload_videos.push(videoExt+videos[m]);
-};
+};*/
 
-function startExperiment() {
+function startExperiment(lwl_data) {
 	createTrials(lwl_data);
-  createTrials(plp_data); // generate all the plugins
+  //createTrials(plp_data); // generate all the plugins
 jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_videos : preload_videos,
+  //preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.lwl_data.displayData();
-    jsPsych.plp_data.displayData();
+//    jsPsych.plp_data.displayData();
   }
 });
 };
