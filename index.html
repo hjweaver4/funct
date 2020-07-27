@@ -31,32 +31,38 @@
 
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
-var trial_order = prompt("Order (1 or 2)","1");
+var lwl_order = prompt("Order (1 or 2)","1");
+var plp_order = prompt("Order(1 or 2)","1");
 
-/* read from a public spreadsheet for LWL trials */
-/*use the publish link NOT the sharing link */
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
-/*
-var tabletop_lwl = Tabletop.init( { key: publicSpreadsheetUrl_lwl,
-                   callback: startExperimentLWL,
-                   simpleSheet: false }) */
+// read from a public spreadsheet for LWL trials
+// use the publish link NOT the sharing link
+var lwl_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?output=csv';
 
-/* read from a public spreadsheet for video trials */
-/*
-var publicSpreadsheetUrl_plp = 'https://docs.google.com/spreadsheets/d/13byAZJymu1H_-3Que5dEN1tW-3E2mh1vMBh-6E3vTbg/edit?usp=sharing';
+// read from a public spreadsheet for video trials
+var plp_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?output=csv';
 
-var tabletop_plp = Tabletop.init( { key: publicSpreadsheetUrl_plp,
-                   callback: startExperimentPLP,
-                   simpleSheet: false })*/
 
-Papa.parse(publicSpreadsheetUrl,{
+//lwl orders
+Papa.parse(lwl_publicSpreadsheetUrl,{
   download: true,
   header: true,
   dynamicTyping: true,
   complete: function(results) {
-    var data = results.data
-    console.log(data)
-    startExperiment(data); //don't start experiment until the spreadsheet is downloaded
+    var lwl_data = results.lwl_data
+    console.log(lwl_data)
+    startExperiment(lwl_data); //don't start experiment until the spreadsheet is downloaded
+  }
+})
+
+//plp orders
+Papa.parse(plp_publicSpreadsheetUrl,{
+  download: true,
+  header: true,
+  dynamicTyping: true,
+  complete: function(results) {
+    var plp_data = results.plp_data
+    console.log(plp_data)
+    startExperiment(plp_data); //don't start experiment until the spreadsheet is downloaded
   }
 })
 
@@ -69,8 +75,8 @@ document.body.style.backgroundRepeat = "no-repeat";
 var timeline = []
 
 /* extract the elements from the CSV */
-function createTrials(data) {
-  console.log(data);
+function createTrials(lwl_data,plp_data) {
+  console.log(lwl_data,plp_data);
 
 /* display start screen */
   var welcome = {
@@ -82,7 +88,8 @@ function createTrials(data) {
 
   timeline.push(welcome);
 
-  var expLength = data.length;
+  var lwlExpLength = lwl_data.length;
+  var plpExtLength = plp_data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
   var imageStop='.jpg"  title = "" width="400" height="400">'
@@ -92,18 +99,18 @@ function createTrials(data) {
 
   lwl_stimuli = []
 /* set up for a LWL trial with audio and 2 images */
-  for (var i = 0; i < expLength; i++) {
+  for (var i = 0; i < lwlExpLength; i++) {
     lwl_stimuli.push(
-    {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
-    choices:[imageStart+data[i]['left_image']+imageStop, imageStart+data[i]['right_image']+imageStop],
-    set_background:data[i]['background'],
-    data:{
-		left_image: data[i]['left_image'],
-		right_image: data[i]['right_image'],
-		target_label: data[i]['target_label'],
-		target_side:data[i]['target_side'],
-		correct_response:data[i]['correct_response'],
-		background:data[i]['background']}
+    {stimulus: audioExt+lwl_data[i]['auditory_stimulus']+".wav",
+    choices:[imageStart+lwl_data[i]['left_image']+imageStop, imageStart+lwl_data[i]['right_image']+imageStop],
+    set_background:lwl_data[i]['background'],
+    lwl_data:{
+		left_image: lwl_data[i]['left_image'],
+		right_image: lwl_data[i]['right_image'],
+		target_label: lwl_data[i]['target_label'],
+		target_side:lwl_data[i]['target_side'],
+		correct_response:lwl_data[i]['correct_response'],
+		background:lwl_data[i]['background']}
     })
   }
 
@@ -117,23 +124,50 @@ function createTrials(data) {
     margin_right: ['89px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
-    data: jsPsych.timelineVariable('data'),
+    data: jsPsych.timelineVariable('lwl_data'),
 	  response_ends_trial: false,
-    on_finish: function(data) {
-      data.correct = data.button_pressed == data.correct_response;
+    on_finish: function(lwl_data) {
+      lwl_data.correct = lwl_data.button_pressed == lwl_data.correct_response;
     }
   }
 
   timeline.push(lwl_trials);
 
-  /*var plp_trial = {
-    type: 'audio-button-response',
-    stimulus: 'acrossTheUniverse000.wav',
-    choices:['stimuli/videos/apple_atypical.mp4',
-    'stimuli/videos/apple_typical.mp4'],
-    button_html: '<video src="%choice%"/>'
+  // create plp trials with videos
+  plp_stimuli = []
+/* set up for a LWL trial with audio and 2 images */
+  for (var p = 0; p < plpExpLength; p++) {
+    plp_stimuli.push(
+    {stimulus: audioExt+plp_data[p]['auditory_stimulus']+".wav",
+    choices:[videoStart+plp_data[p]['left_video']+videoStop, videoStart+plp_data[p]['right_video']+videoStop],
+    set_background:plp_data[p]['background'],
+    plp_data:{
+		left_video: plp_data[p]['left_video'],
+		right_video: plp_data[p]['right_video'],
+		atypical_side: plp_data[p]['atypical_side'],
+		correct_response: plp_data[p]['correct_response'],
+		background: plp_data[p]['background']}
+    })
   }
-  timeline.push(plp_trial);*/
+
+/* define the location of the stimuli */
+  var plp_trials = {
+    type: 'audio-button-response-flexiblelocations',
+    trial_duration: 6500,
+    margin_top: ['300px','300px'],
+    margin_bottom: ['0px','0px'],
+    margin_left: ['0px','200px'],
+    margin_right: ['89px','0px'],
+    timeline: plp_stimuli,
+	  response_possible: false,
+    data: jsPsych.timelineVariable('plp_data'),
+	  response_ends_trial: false,
+    on_finish: function(plp_data) {
+      plp_data.correct = plp_data.button_pressed == plp_data.correct_response;
+    }
+  }
+
+  timeline.push(plp_trials);
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -178,7 +212,7 @@ for (var k = 0; k < images.length; k++) {
 };
 
 var audio = [
-  /*"acrossTheUniverse000.wav",
+  "acrossTheUniverse000.wav",
   "acrossTheUniverse001.wav",
   "acrossTheUniverse002.wav",
   "acrossTheUniverse003.wav",
@@ -187,7 +221,7 @@ var audio = [
   "acrossTheUniverse006.wav",
   "acrossTheUniverse007.wav",
   "acrossTheUniverse008.wav",
-  "acrossTheUniverse009.wav",*/
+  "acrossTheUniverse009.wav",
 	"AG.wav",
   "apple_find.wav",
   "apple_look.wav",
@@ -201,7 +235,7 @@ var audio = [
   "toothbrush_find.wav",
   "toothbrush_look.wav",
   "toothbrush_where.wav",
-  /*"yellow000.wav",
+  "yellow000.wav",
   "yellow001.wav",
   "yellow002.wav",
   "yellow003.wav",
@@ -210,7 +244,7 @@ var audio = [
   "yellow006.wav",
   "yellow007.wav",
   "yellow008.wav",
-  "yellow009.wav"*/
+  "yellow009.wav"
 ];
 
 var preload_audio  = [];
@@ -219,27 +253,41 @@ for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
 
-/*var videoExt = 'stimuli/videos/'
+var videoExt = 'stimuli/videos/'
 
 
 var videos = [
+  "apple_atypical.mp4",
+  "apple_typical.mp4",
+  "ball_atypical.mp4",
+  "ball_typical.mp4",
+  "BouncyBalls.mp4",
+  "Bubbles.mp4",
+  "Clouds_8.mp4",
+  "crayon_atypical.mp4",
+  "crayon_typical.mp4",
+  "Drops_8.mp4",
+  "toothbrush_atypical.mp4",
+  "toothbrush_typical.mp4"
 ]
 
 var preload_videos=[];
 
 for (var m = 0; m < videos.length; m++) {
 	preload_videos.push(videoExt+videos[m]);
-};*/
+};
 
-function startExperiment(data) {
-	createTrials(data); // generate all the plugins
+function startExperiment(lwl_data, plp_data) {
+	createTrials(lwl_data,plp_data); // generate all the plugins
 jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
+  preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
-    jsPsych.data.displayData();
+    jsPsych.lwl_data.displayData();
+    jsPsych.plp_data.displayData();
   }
 });
 };
