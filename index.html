@@ -48,7 +48,7 @@ Papa.parse(lwl_publicSpreadsheetUrl,{
   header: true,
   dynamicTyping: true,
   complete: function(results) {
-    var lwl_data = results.data
+    var data = results.data
     console.log(data)
     startExperiment(data); //don't start experiment until the spreadsheet is downloaded
   }
