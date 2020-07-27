@@ -62,7 +62,7 @@ Papa.parse(plp_publicSpreadsheetUrl,{
   complete: function(results) {
     var plp_data = results.plp_data
     console.log(plp_data)
-    startExperiment(plp_data); //don't start experiment until the spreadsheet is downloaded
+    startExperiment(lwl_data); //don't start experiment until the spreadsheet is downloaded
   }
 })
 
@@ -75,8 +75,8 @@ document.body.style.backgroundRepeat = "no-repeat";
 var timeline = []
 
 /* extract the elements from the CSV */
-function createTrials(lwl_data,plp_data) {
-  console.log(lwl_data,plp_data);
+function createTrials(lwl_data) {
+  console.log(lwl_data);
 
 /* display start screen */
   var welcome = {
@@ -89,12 +89,12 @@ function createTrials(lwl_data,plp_data) {
   timeline.push(welcome);
 
   var lwlExpLength = lwl_data.length;
-  var plpExtLength = plp_data.length;
+  //var plpExtLength = plp_data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
   var imageStop='.jpg"  title = "" width="400" height="400">'
-  var videoStart = '<video src = "stimuli/videos/'
-  var videoStop = '.mp4" title = "" width="400">'
+  //var videoStart = '<video src = "stimuli/videos/'
+  //var videoStop = '.mp4" title = "" width="400">'
 
 
   lwl_stimuli = []
@@ -134,8 +134,8 @@ function createTrials(lwl_data,plp_data) {
   timeline.push(lwl_trials);
 
   // create plp trials with videos
-  plp_stimuli = []
-/* set up for a LWL trial with audio and 2 images */
+/* plp_stimuli = []
+//set up for a LWL trial with audio and 2 images
   for (var p = 0; p < plpExpLength; p++) {
     plp_stimuli.push(
     {stimulus: audioExt+plp_data[p]['auditory_stimulus']+".wav",
@@ -150,7 +150,7 @@ function createTrials(lwl_data,plp_data) {
     })
   }
 
-/* define the location of the stimuli */
+//define the location of the stimuli
   var plp_trials = {
     type: 'audio-button-response-flexiblelocations',
     trial_duration: 6500,
@@ -167,13 +167,74 @@ function createTrials(lwl_data,plp_data) {
     }
   }
 
-  timeline.push(plp_trials);
+  timeline.push(plp_trials);*/
 
-  var fullscreen_exit = {
+/*  var fullscreen_exit = {
     type: 'fullscreen',
     fullscreen_mode: false
   }
-  timeline.push(fullscreen_exit)
+  timeline.push(fullscreen_exit)*/
+};
+
+function createTrials(plp_data) {
+  console.log(plp_data);
+
+  var plpExtLength = plp_data.length;
+  //var audioExt="stimuli/sounds/"
+  var videoStart = '<video src = "stimuli/videos/'
+  var videoStop = '.mp4" title = "" width="400">'
+
+  var welcome = {
+    type: "fullscreen",
+    message: "",
+    button_label: "Start",
+    delay_after: 250
+  }
+
+    timeline.push(welcome);
+
+    // create plp trials with videos
+    plp_stimuli = []
+  /* set up for a LWL trial with audio and 2 images */
+    for (var p = 0; p < plpExpLength; p++) {
+      plp_stimuli.push(
+      {stimulus: audioExt+plp_data[p]['auditory_stimulus']+".wav",
+      choices:[videoStart+plp_data[p]['left_video']+videoStop, videoStart+plp_data[p]['right_video']+videoStop],
+      set_background:plp_data[p]['background'],
+      plp_data:{
+  		left_video: plp_data[p]['left_video'],
+  		right_video: plp_data[p]['right_video'],
+  		atypical_side: plp_data[p]['atypical_side'],
+  		correct_response: plp_data[p]['correct_response'],
+  		background: plp_data[p]['background']}
+      })
+    }
+
+  /* define the location of the stimuli */
+    var plp_trials = {
+      type: 'audio-button-response-flexiblelocations',
+      trial_duration: 6500,
+      margin_top: ['300px','300px'],
+      margin_bottom: ['0px','0px'],
+      margin_left: ['0px','200px'],
+      margin_right: ['89px','0px'],
+      timeline: plp_stimuli,
+  	  response_possible: false,
+      data: jsPsych.timelineVariable('plp_data'),
+  	  response_ends_trial: false,
+      on_finish: function(plp_data) {
+        plp_data.correct = plp_data.button_pressed == plp_data.correct_response;
+      }
+    }
+
+    timeline.push(plp_trials);
+
+    var fullscreen_exit = {
+      type: 'fullscreen',
+      fullscreen_mode: false
+    }
+    timeline.push(fullscreen_exit)
+
 };
 
 
@@ -277,8 +338,9 @@ for (var m = 0; m < videos.length; m++) {
 	preload_videos.push(videoExt+videos[m]);
 };
 
-function startExperiment(lwl_data, plp_data) {
-	createTrials(lwl_data,plp_data); // generate all the plugins
+function startExperiment(lwl_data) {
+	createTrials(lwl_data);
+  createTrials(plp_data); // generate all the plugins
 jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
