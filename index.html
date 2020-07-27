@@ -48,9 +48,9 @@ Papa.parse(lwl_publicSpreadsheetUrl,{
   header: true,
   dynamicTyping: true,
   complete: function(results) {
-    var lwl_data = results.lwl_data
-    console.log(lwl_data)
-    startExperiment(lwl_data); //don't start experiment until the spreadsheet is downloaded
+    var lwl_data = results.data
+    console.log(data)
+    startExperiment(data); //don't start experiment until the spreadsheet is downloaded
   }
 })
 
@@ -75,8 +75,8 @@ document.body.style.backgroundRepeat = "no-repeat";
 var timeline = []
 
 /* extract the elements from the CSV */
-function createTrials(lwl_data) {
-  console.log(lwl_data);
+function createTrials(data) {
+  console.log(data);
 
 /* display start screen */
   var welcome = {
@@ -101,16 +101,16 @@ function createTrials(lwl_data) {
 /* set up for a LWL trial with audio and 2 images */
   for (var i = 0; i < lwlExpLength; i++) {
     lwl_stimuli.push(
-    {stimulus: audioExt+lwl_data[i]['auditory_stimulus']+".wav",
-    choices:[imageStart+lwl_data[i]['left_image']+imageStop, imageStart+lwl_data[i]['right_image']+imageStop],
-    set_background:lwl_data[i]['background'],
-    lwl_data:{
-		left_image: lwl_data[i]['left_image'],
-		right_image: lwl_data[i]['right_image'],
-		target_label: lwl_data[i]['target_label'],
-		target_side:lwl_data[i]['target_side'],
-		correct_response:lwl_data[i]['correct_response'],
-		background:lwl_data[i]['background']}
+    {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
+    choices:[imageStart+data[i]['left_image']+imageStop, imageStart+data[i]['right_image']+imageStop],
+    set_background:data[i]['background'],
+    data:{
+		left_image: data[i]['left_image'],
+		right_image: data[i]['right_image'],
+		target_label: data[i]['target_label'],
+		target_side: data[i]['target_side'],
+		correct_response: data[i]['correct_response'],
+		background: data[i]['background']}
     })
   }
 
@@ -124,10 +124,10 @@ function createTrials(lwl_data) {
     margin_right: ['89px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
-    data: jsPsych.timelineVariable('lwl_data'),
+    data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-    on_finish: function(lwl_data) {
-      lwl_data.correct = lwl_data.button_pressed == lwl_data.correct_response;
+    on_finish: function(data) {
+      data.correct = data.button_pressed == data.correct_response;
     }
   }
 
@@ -347,8 +347,8 @@ for (var m = 0; m < videos.length; m++) {
 	preload_videos.push(videoExt+videos[m]);
 };*/
 
-function startExperiment(lwl_data) {
-	createTrials(lwl_data);
+function startExperiment(ata) {
+	createTrials(data);
   //createTrials(plp_data); // generate all the plugins
 jsPsych.init({ //js.psych initializes
   timeline: timeline,
@@ -357,7 +357,7 @@ jsPsych.init({ //js.psych initializes
   //preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
-    jsPsych.lwl_data.displayData();
+    jsPsych.data.displayData();
 //    jsPsych.plp_data.displayData();
   }
 });
