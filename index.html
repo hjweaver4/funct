@@ -356,8 +356,8 @@ var video = [
 
 var preload_videos=[];
 
-for (var m = 0; m < videos.length; m++) {
-	preload_videos.push("stimuli/videos/"+videos[m]);
+for (var m = 0; m < video.length; m++) {
+	preload_videos.push("stimuli/videos/"+video[m]);
 };
 
 function startExperiment(data) {
@@ -367,7 +367,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_videos,
+  preload_video: preload_videos,
   //preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
