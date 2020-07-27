@@ -135,15 +135,10 @@ function createTrials(data) {
 
 // define 1 plp trials
   var plp_trials = {
-    type: 'audio-button-response-flexiblelocations',
+    type: 'audio-button-response',
     stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
     choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
     trial_durations: 6000,
-    margin_top: ['300px','300px'],
-    margin_bottom: ['0px','0px'],
-    margin_left: ['0px','200px'],
-    margin_right: ['89px','0px'],
-	  response_possible: false,
     //data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
     button_html: '<video src = "%choice%" />'
@@ -344,7 +339,7 @@ for (var l = 0; l < preload_audio.length; l++) {
 var videoExt = 'stimuli/videos/'
 
 
-var videos = [
+var video = [
   "apple_atypical.mp4",
   "apple_typical.mp4"
   /*"ball_atypical.mp4",
