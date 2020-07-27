@@ -98,7 +98,7 @@ function createTrials(data) {
 
 
   lwl_stimuli = []
-/* set up for a LWL trial with audio and 2 images */
+// set up for a LWL trial with audio and 2 images
   for (var i = 0; i < expLength; i++) {
     lwl_stimuli.push(
     {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
@@ -114,7 +114,7 @@ function createTrials(data) {
     })
   }
 
-/* define the location of the stimuli */
+//define the location of the stimuli
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
     trial_duration: 3500,
@@ -132,6 +132,26 @@ function createTrials(data) {
   }
 
   timeline.push(lwl_trials);
+
+// define 1 plp trials
+  var plp_tirals = {
+    type: 'audio-button-response-flexiblelocations',
+    stimulus: "acrossTheUniverse000.wav",
+    choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+    trial_durations: 6000,
+    margin_top: ['300px','300px'],
+    margin_bottom: ['0px','0px'],
+    margin_left: ['0px','200px'],
+    margin_right: ['89px','0px'],
+	  response_possible: false,
+    data: jsPsych.timelineVariable('data'),
+	  response_ends_trial: false,
+    on_finish: function(data) {
+      data.correct = data.button_pressed == data.correct_response;
+    }
+  }
+
+  timeline.push(plp_trials);
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -281,8 +301,8 @@ for (var k = 0; k < images.length; k++) {
 };
 
 var audio = [
-  /*"acrossTheUniverse000.wav",
-  "acrossTheUniverse001.wav",
+  "acrossTheUniverse000.wav",
+  /*"acrossTheUniverse001.wav",
   "acrossTheUniverse002.wav",
   "acrossTheUniverse003.wav",
   "acrossTheUniverse004.wav",
@@ -322,14 +342,14 @@ for (var l = 0; l < preload_audio.length; l++) {
 	preload_audio.push(imageExt+audio[l]);
 };
 
-/*
+
 var videoExt = 'stimuli/videos/'
 
 
 var videos = [
   "apple_atypical.mp4",
   "apple_typical.mp4",
-  "ball_atypical.mp4",
+  /*"ball_atypical.mp4",
   "ball_typical.mp4",
   "BouncyBalls.mp4",
   "Bubbles.mp4",
@@ -338,14 +358,14 @@ var videos = [
   "crayon_typical.mp4",
   "Drops_8.mp4",
   "toothbrush_atypical.mp4",
-  "toothbrush_typical.mp4"
+  "toothbrush_typical.mp4"*/
 ]
 
 var preload_videos=[];
 
 for (var m = 0; m < videos.length; m++) {
-	preload_videos.push(videoExt+videos[m]);
-};*/
+	preload_videos.push("stimuli/videos/"+videos[m]);
+};
 
 function startExperiment(data) {
 	createTrials(data);
