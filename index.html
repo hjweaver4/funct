@@ -146,9 +146,6 @@ function createTrials(data) {
 	  response_possible: false,
     data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-    on_finish: function(data) {
-      data.correct = data.button_pressed == data.correct_response;
-    },
     button_html: '<video src = "%choice%" />'
   }
 
@@ -349,7 +346,7 @@ var videoExt = 'stimuli/videos/'
 
 var videos = [
   "apple_atypical.mp4",
-  "apple_typical.mp4",
+  "apple_typical.mp4"
   /*"ball_atypical.mp4",
   "ball_typical.mp4",
   "BouncyBalls.mp4",
@@ -375,6 +372,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
+  preload_videos,
   //preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
