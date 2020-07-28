@@ -137,29 +137,34 @@ function createTrials(data) {
   var plp_trials = {
     timeline:[
       {
+        //autoplay left side first
         type: 'audio-button-response',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
-        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/images/apple_typical1.jpg"],
+        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<video width= "400" autoplay src = "%choice%"/>', '<img width = "400" src = "%choice%"/>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360"><source src="%choice%" type="video/mp4"></video></div>']
       },
       {
+        //autoplay right side next
         type: 'audio-button-response',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
-        choices: ["stimuli/images/apple_atypical2.jpg", "stimuli/videos/apple_typical.mp4"],
+        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<img width = "400" src = "%choice%"/>','<video width= "400" autoplay src = "%choice%"/>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360"><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360" autoplay><source src="%choice%" type="video/mp4"></video></div>']
       },
       {
+        //autoplay both sides simultaneously
         type: 'audio-button-response',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
         choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         trial_durations: 6000,
-        //data: jsPsych.timelineVariable('data'),
     	  response_ends_trial: false,
-        button_html: '<video width = "400" autoplay src = "%choice%" />'
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360" autoplay><source src="jspsych-6.1.0/examples/video/sample_video.mp4" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="640" height = "360" autoplay><source src="jspsych-6.1.0/examples/video/sample_video.mp4" type="video/mp4"></video></div>']
       }
     ]
     /*type: 'audio-button-response',
@@ -381,7 +386,7 @@ var video = [
   "toothbrush_typical.mp4"*/
 ]
 
-var preload_videos=[];
+var video_preload=[];
 
 for (var m = 0; m < video.length; m++) {
 	preload_videos.push("stimuli/videos/"+video[m]);
@@ -394,9 +399,9 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_video: preload_videos,
+  preload_video: video_preload,
   //preload_videos : preload_videos,
-	default_iti: 300,
+	default_iti: 0,
   on_finish: function() {
     jsPsych.data.displayData();
 //    jsPsych.plp_data.displayData();
