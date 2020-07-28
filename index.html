@@ -138,9 +138,13 @@ function createTrials(data) {
     timeline:[
       {
         //autoplay left side first
-        type: 'audio-button-response',
+        type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
         choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
@@ -149,9 +153,13 @@ function createTrials(data) {
       },
       {
         //autoplay right side next
-        type: 'audio-button-response',
+        type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
         choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
@@ -160,9 +168,13 @@ function createTrials(data) {
       },
       {
         //autoplay both sides simultaneously
-        type: 'audio-button-response',
+        type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
         choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
         post_trial_gap:0,
         trial_durations: 6000,
     	  response_ends_trial: false,
