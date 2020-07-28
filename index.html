@@ -135,13 +135,40 @@ function createTrials(data) {
 
 // define 1 plp trials
   var plp_trials = {
-    type: 'audio-button-response',
+    timeline:[
+      {
+        type: 'audio-button-response',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/images/apple_typical1.jpg"],
+        trial_duration: 6000,
+        response_ends_trial: false,
+        button_html: ['<video width= "400" autoplay src = "%choice%"/>', '<img width = "400" src = "%choice%"/>']
+      },
+      {
+        type: 'audio-button-response',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices: ["stimuli/images/apple_atypical2.jpg", "stimuli/videos/apple_typical.mp4"],
+        trial_duration: 6000,
+        response_ends_trial: false,
+        button_html: ['<img width = "400" src = "%choice%"/>','<video width= "400" autoplay src = "%choice%"/>']
+      },
+      {
+        type: 'audio-button-response',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        trial_durations: 6000,
+        //data: jsPsych.timelineVariable('data'),
+    	  response_ends_trial: false,
+        button_html: '<video width = "400" autoplay src = "%choice%" />'
+      }
+    ]
+    /*type: 'audio-button-response',
     stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
     choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
     trial_durations: 6000,
     //data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-    button_html: '<video width = "400" autoplay src = "%choice%" />'
+    button_html: '<video width = "400" autoplay src = "%choice%" />'*/
   }
 
   timeline.push(plp_trials);
