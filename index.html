@@ -142,7 +142,7 @@ function createTrials(data) {
 
 // define 1 plp trials
   var plp_trials = {
-    //timeline:[
+    timeline:[
       {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
@@ -190,8 +190,12 @@ function createTrials(data) {
     	  response_ends_trial: false,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
 		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
-      }
-    //]
+    },
+    {
+      type:'fullscreen',
+      fullscreen_mode: false
+    }
+    ]
   }
 
   timeline.push(plp_trials);
