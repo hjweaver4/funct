@@ -144,7 +144,7 @@ function createTrials(data) {
       {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
-        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
         choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -159,7 +159,7 @@ function createTrials(data) {
       {
         //autoplay right side next
         type: 'audio-button-response-flexiblelocations',
-        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        stimulus: "stimuli/sounds/acrossTheUniverse_70dB001.wav",
         choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -174,7 +174,7 @@ function createTrials(data) {
       {
         //autoplay both sides simultaneously
         type: 'audio-button-response-flexiblelocations',
-        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        stimulus: "stimuli/sounds/acrossTheUniverse_70dB002.wav",
         choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -236,10 +236,10 @@ for (var k = 0; k < images.length; k++) {
 };
 
 var audio = [
-  "acrossTheUniverse000.wav",
-  /*"acrossTheUniverse001.wav",
-  "acrossTheUniverse002.wav",
-  "acrossTheUniverse003.wav",
+  "acrossTheUniverse_70dB000.wav",
+  "acrossTheUniverse_70dB001.wav",
+  "acrossTheUniverse_70dB002.wav",
+  /*"acrossTheUniverse003.wav",
   "acrossTheUniverse004.wav",
   "acrossTheUniverse005.wav",
   "acrossTheUniverse006.wav",
@@ -278,12 +278,12 @@ for (var l = 0; l < preload_audio.length; l++) {
 };
 
 
-var videoExt = 'stimuli/videos/'
+//var videoExt = 'stimuli/videos/'
 
 
-var video = [
-  "apple_atypical.mp4",
-  "apple_typical.mp4"
+//var video = [
+  //"apple_atypical.mp4",
+  //"apple_typical.mp4"
   /*"ball_atypical.mp4",
   "ball_typical.mp4",
   "BouncyBalls.mp4",
@@ -296,11 +296,11 @@ var video = [
   "toothbrush_typical.mp4"*/
 ]
 
-var video_preload=[];
+var video_preload=["stimuli/videos/apple_atypical.mp4","stimuli/videos/apple_typical.mp4"];
 
-for (var m = 0; m < video.length; m++) {
-	video_preload.push("stimuli/videos/"+video[m]);
-};
+//for (var m = 0; m < video.length; m++) {
+	//video_preload.push("stimuli/videos/"+video[m]);
+//};
 
 function startExperiment(data) {
 	createTrials(data);
@@ -310,7 +310,6 @@ jsPsych.init({ //js.psych initializes
   preload_audio:preload_audio,
   preload_images:preload_images,
   preload_video: video_preload,
-  //preload_videos : preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
