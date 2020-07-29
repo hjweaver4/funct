@@ -147,7 +147,7 @@ function createTrials(data) {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
-        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -156,14 +156,14 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto"><source src="%choice%" type="video/mp4"></video></div>']
     },
     {
         //autoplay right side next
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB001.wav",
-        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -172,14 +172,14 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto"><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>']
     },
     {
         //autoplay both sides simultaneously
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB002.wav",
-        choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        choices:["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -188,8 +188,8 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_durations: 6000,
     	  response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>']
     }
   ]
 }
@@ -299,7 +299,7 @@ for (var l = 0; l < preload_audio.length; l++) {
   "toothbrush_typical.mp4"*/
 //]
 
-var video_preload=["stimuli/videos/apple_typical.mp4","stimuli/videos/apple_atypical.mp4"];
+var video_preload=["stimuli/videos/apple_typical_sm.mp4","stimuli/videos/apple_atypical_sm.mp4"];
 
 //for (var m = 0; m < video.length; m++) {
 	//video_preload.push("stimuli/videos/"+video[m]);
