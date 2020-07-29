@@ -12,7 +12,6 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
 	var plugin = {};
 
 	jsPsych.pluginAPI.registerPreload('audio-button-response-flexiblelocations', 'stimulus', 'audio');
-  jsPsych.pluginAPI.registerPreload('audio-button-response-flexiblelocations', 'choices', 'image');
   jsPsych.pluginAPI.registerPreload('audio-button-response-flexiblelocations', 'choices', 'video');
 
 	plugin.info = {
