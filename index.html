@@ -195,7 +195,10 @@ function createTrials(data) {
         trial_durations: 6000,
     	  response_ends_trial: false,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" controls preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>'],
+    on_finish: function(){
+      console.log("the plp trials are done!")
+    }
         }
     //}
     //]
