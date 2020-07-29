@@ -141,9 +141,9 @@ function createTrials(data) {
   timeline.push(lwl_trials);
 
 // define 1 plp trials
-  var plp_trials = {
-    timeline:[
-      {
+  var plp_side1 = {
+    //timeline:[
+      //{
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
@@ -158,7 +158,11 @@ function createTrials(data) {
         response_ends_trial: false,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
 		'<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>']
-      },
+  }//,
+
+  timeline.push(plp_side1);
+
+  var plp_side2:
       {
         //autoplay right side next
         type: 'audio-button-response-flexiblelocations',
@@ -174,7 +178,11 @@ function createTrials(data) {
         response_ends_trial: false,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>',
 		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
-      },
+  }//,
+
+  timeline.push(plp_side2);
+
+  var plp_together:
       {
         //autoplay both sides simultaneously
         type: 'audio-button-response-flexiblelocations',
@@ -189,15 +197,11 @@ function createTrials(data) {
         trial_durations: 6000,
     	  response_ends_trial: false,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>'],
-        on_finish: function(){
-          jsPsych.endCurrentTimeline();
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
         }
-    }
-    ]
-  }
-
-  timeline.push(plp_trials);
+    //}
+    //]
+  timeline.push(plp_together);
 
   var fullscreen_exit = {
     type: 'fullscreen',
