@@ -141,9 +141,9 @@ function createTrials(data) {
   timeline.push(lwl_trials);
 
 // define 1 plp trials
-  var plp_side1 = {
-    //timeline:[
-      //{
+  var plp_trial = {
+    timeline:[
+      {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
@@ -156,13 +156,10 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto" ><source src="%choice%" type="video/mp4"></video></div>']
-  }//,
-
-  timeline.push(plp_side1);
-
-  var plp_side2 = {
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="500" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="500"><source src="%choice%" type="video/mp4"></video></div>']
+    },
+    {
         //autoplay right side next
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB001.wav",
@@ -175,13 +172,10 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto"><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>']
-  }//,
-
-  timeline.push(plp_side2);
-
-  var plp_together = {
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="500"><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="500" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+    },
+    {
         //autoplay both sides simultaneously
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB002.wav",
@@ -194,18 +188,17 @@ function createTrials(data) {
         post_trial_gap:0,
         trial_durations: 6000,
     	  response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" height="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>']
-  }
-    //}
-    //]
-  timeline.push(plp_together);
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="500" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="500" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+    }
+  ]
+  timeline.push(plp_trial);
 
   var fullscreen_exit = {
     type: 'fullscreen',
     fullscreen_mode: false
   }
-  timeline.push(fullscreen_exit)
+  timeline.push(fullscreen_exit);
 };
 
 
@@ -305,7 +298,7 @@ for (var l = 0; l < preload_audio.length; l++) {
   "toothbrush_typical.mp4"*/
 //]
 
-var video_preload=["stimuli/videos/apple_atypical.mp4","stimuli/videos/apple_typical.mp4"];
+var video_preload=["stimuli/videos/apple_typical.mp4","stimuli/videos/apple_atypical.mp4"];
 
 //for (var m = 0; m < video.length; m++) {
 	//video_preload.push("stimuli/videos/"+video[m]);
