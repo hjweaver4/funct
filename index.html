@@ -2,14 +2,14 @@
 <html>
 
 <head>
-  <title>Funct LWL</title>
+  <title>Funct Experiment</title>
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
   <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
-  <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
   <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css",type="text/css"> </link>
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
@@ -23,7 +23,7 @@
   </style>
 </head>
 <body>
-  <div id="funct-lwl"></div>
+  <div id="jspsych-lwl"></div>
 </body>
 
 <script>
@@ -31,30 +31,59 @@
 
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
-var trial_order = prompt("Order (1 or 2)","1");
+var lwl_order = prompt("Order (1 or 2)","1");
+//var plp_order = prompt("Order(1 or 2)","1");
 
-/* read from a public spreadsheet */
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1hMjDFj3WZIpIq6BZ0CjtqxWF0s4FZ4G4SqMKE99WiaQ/edit?usp=sharing';
+// read from a public spreadsheet for LWL trials
+// use the publish link NOT the sharing link
+if (lwl_order == "1") {
+  var lwl_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?gid=2061099652&single=true&output=csv'
+} else if (lwl_order == "2") {
+  var lwl_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTwymG3wYbDJ2tzNmlE5Ibl2_NXxdTvWXBztuw4VgRZfpyVVjweeE0A52CRqTZtDmS2tdAOEWEFPasy/pub?gid=37901528&single=true&output=csv'
+}
 
-var tabletop = Tabletop.init( { key: publicSpreadsheetUrl,
-                   callback: startExperiment,
-                   simpleSheet: false })
+
+// read from a public spreadsheet for video trials
+///var plp_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?output=csv';
 
 
+//lwl orders
+Papa.parse(lwl_publicSpreadsheetUrl,{
+  download: true,
+  header: true,
+  dynamicTyping: true,
+  complete: function(results) {
+    var data = results.data
+    console.log(data)
+    startExperiment(data); //don't start experiment until the spreadsheet is downloaded
+  }
+})
+
+//plp orders
+/*Papa.parse(plp_publicSpreadsheetUrl,{
+  download: true,
+  header: true,
+  dynamicTyping: true,
+  complete: function(results) {
+    var plp_data = results.plp_data
+    console.log(plp_data)
+    startExperiment(); //don't start experiment until the spreadsheet is downloaded
+  }
+})*/
 
 document.body.style.backgroundColor = "black";
 document.body.style.backgroundSize = "100%";
 document.body.style.backgroundPosition = "top";
 document.body.style.backgroundRepeat = "no-repeat";
 
-
+/* create experiment timeline*/
 var timeline = []
 
-function createTrials(data, tabletop) {
-
-  data = data['Order_'+trial_order]['elements']
+/* extract the elements from the CSV */
+function createTrials(data) {
   console.log(data);
 
+/* display start screen */
   var welcome = {
     type: "fullscreen",
     message: "",
@@ -65,13 +94,16 @@ function createTrials(data, tabletop) {
   timeline.push(welcome);
 
   var expLength = data.length;
+  //var plpExtLength = plp_data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
-  var imageStop='.jpg"  title = "" width="360" height="360">'
+  var imageStop='.jpg"  title = "" width="400" height="400">'
+  //var videoStart = '<video src = "stimuli/videos/'
+  //var videoStop = '.mp4" title = "" width="400">'
 
 
   lwl_stimuli = []
-
+// set up for a LWL trial with audio and 2 images
   for (var i = 0; i < expLength; i++) {
     lwl_stimuli.push(
     {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
@@ -81,24 +113,24 @@ function createTrials(data, tabletop) {
 		left_image: data[i]['left_image'],
 		right_image: data[i]['right_image'],
 		target_label: data[i]['target_label'],
-		target_side:data[i]['target_side'],
-		correct_response:data[i]['correct_response'],
-		background:data[i]['background']}
+		target_side: data[i]['target_side'],
+		correct_response: data[i]['correct_response'],
+		background: data[i]['background']}
     })
   }
 
-
+//define the location of the stimuli
   var lwl_trials = {
     type: 'audio-button-response-flexiblelocations',
+    trial_duration: 3500,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
-    margin_left: ['0px','250px'],
-    margin_right: ['250px','0px'],
+    margin_left: ['0px','200px'],
+    margin_right: ['89px','0px'],
     timeline: lwl_stimuli,
 	  response_possible: false,
     data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
-	  trial_duration: 3500,
     on_finish: function(data) {
       data.correct = data.button_pressed == data.correct_response;
     }
@@ -106,12 +138,67 @@ function createTrials(data, tabletop) {
 
   timeline.push(lwl_trials);
 
+// define 1 plp trials
+  var plp_trials = {
+    timeline:[
+      {
+        //autoplay left side first
+        type: 'audio-button-response-flexiblelocations',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
+        post_trial_gap:0,
+        trial_duration: 6000,
+        response_ends_trial: false,
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>']
+      },
+      {
+        //autoplay right side next
+        type: 'audio-button-response-flexiblelocations',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices: ["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
+        post_trial_gap:0,
+        trial_duration: 6000,
+        response_ends_trial: false,
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400"><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+      },
+      {
+        //autoplay both sides simultaneously
+        type: 'audio-button-response-flexiblelocations',
+        stimulus: "stimuli/sounds/acrossTheUniverse000.wav",
+        choices:["stimuli/videos/apple_atypical.mp4", "stimuli/videos/apple_typical.mp4"],
+        margin_top: ['300px','300px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['89px','0px'],
+        post_trial_gap:0,
+        trial_durations: 6000,
+    	  response_ends_trial: false,
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" autoplay><source src="%choice%" type="video/mp4"></video></div>']
+      }
+    ]
+  }
+
+  timeline.push(plp_trials);
+
   var fullscreen_exit = {
     type: 'fullscreen',
     fullscreen_mode: false
   }
   timeline.push(fullscreen_exit)
+
 };
+
 
 
 var imageExt = 'stimuli/images/'
@@ -149,6 +236,16 @@ for (var k = 0; k < images.length; k++) {
 };
 
 var audio = [
+  "acrossTheUniverse000.wav",
+  /*"acrossTheUniverse001.wav",
+  "acrossTheUniverse002.wav",
+  "acrossTheUniverse003.wav",
+  "acrossTheUniverse004.wav",
+  "acrossTheUniverse005.wav",
+  "acrossTheUniverse006.wav",
+  "acrossTheUniverse007.wav",
+  "acrossTheUniverse008.wav",
+  "acrossTheUniverse009.wav",*/
 	"AG.wav",
   "apple_find.wav",
   "apple_look.wav",
@@ -161,7 +258,17 @@ var audio = [
   "crayon_where.wav",
   "toothbrush_find.wav",
   "toothbrush_look.wav",
-  "toothbrush_where.wav"
+  "toothbrush_where.wav",
+  /*"yellow000.wav",
+  "yellow001.wav",
+  "yellow002.wav",
+  "yellow003.wav",
+  "yellow004.wav",
+  "yellow005.wav",
+  "yellow006.wav",
+  "yellow007.wav",
+  "yellow008.wav",
+  "yellow009.wav"*/
 ];
 
 var preload_audio  = [];
@@ -171,18 +278,59 @@ for (var l = 0; l < preload_audio.length; l++) {
 };
 
 
-function startExperiment(data, tabletop) {
-	createTrials(data,tabletop);
-jsPsych.init({
+var videoExt = 'stimuli/videos/'
+
+
+var video = [
+  "apple_atypical.mp4",
+  "apple_typical.mp4"
+  /*"ball_atypical.mp4",
+  "ball_typical.mp4",
+  "BouncyBalls.mp4",
+  "Bubbles.mp4",
+  "Clouds_8.mp4",
+  "crayon_atypical.mp4",
+  "crayon_typical.mp4",
+  "Drops_8.mp4",
+  "toothbrush_atypical.mp4",
+  "toothbrush_typical.mp4"*/
+]
+
+var video_preload=[];
+
+for (var m = 0; m < video.length; m++) {
+	video_preload.push("stimuli/videos/"+video[m]);
+};
+
+function startExperiment(data) {
+	createTrials(data);
+  //createTrials(plp_data); // generate all the plugins
+jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
+  preload_video: video_preload,
+  //preload_videos : preload_videos,
+	default_iti: 300,
+  on_finish: function() {
+    jsPsych.data.displayData();
+//    jsPsych.plp_data.displayData();
+  }
+});
+};
+
+/*function startExperimentPLP(data_plp, tabletop_plp) {
+	createPLPTrials(data_plp,tabletop_plp);
+jsPsych.init({
+  timeline: timeline,
+  preload_audio:preload_audio,
+  preload_videos:preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
   }
 });
-};
+};*/
 
 /*
 function save_data(experiment, version,identifier, data){
