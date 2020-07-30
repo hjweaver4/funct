@@ -155,9 +155,9 @@ var preloadV = {
 }
 timeline.push(preloadV);
 
-function vidend() {
-  jsPsych.finishTrial()
-}
+//function vidend() {
+//  jsPsych.finishTrial()
+/}
 
 // define 1 plp trials
   var plp_trial = {
@@ -166,7 +166,8 @@ function vidend() {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
         on_load: function(){
-          jsPsych.getDisplayElement().querySelector('stimuli/videos/apple_atypical_sm.mp4','stimuli/videos/apple_typical_sm.mp4').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_atypical_sm.mp4','stimuli/videos/apple_typical_sm.mp4')
+          jsPsych.getDisplayElement().querySelector('apple_atypical_sm').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_atypical_sm.mp4')
+          jsPsych.getDisplayElement().querySelector('apple_typical_sm').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_typical_sm.mp4')
         },
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
         choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
@@ -216,6 +217,10 @@ function vidend() {
   ]
 }
   timeline.push(plp_trial);
+
+  function vidend() {
+    jsPsych.finishTrial()
+  }
 
   var fullscreen_exit = {
     type: 'fullscreen',
