@@ -140,7 +140,7 @@ function createTrials(data) {
   }
 
   timeline.push(lwl_trials);
-
+/*
 //preload videos
 var preloadV = {
   type: 'call-function',
@@ -153,7 +153,7 @@ var preloadV = {
     })
   }
 }
-timeline.push(preloadV);
+timeline.push(preloadV);*/
 
 //function vidend() {
 //  jsPsych.finishTrial()
@@ -166,11 +166,13 @@ timeline.push(preloadV);
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
         on_load: function(){
-          jsPsych.getDisplayElement().querySelector('apple_atypical_sm').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_atypical_sm.mp4')
-          jsPsych.getDisplayElement().querySelector('apple_typical_sm').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_typical_sm.mp4')
+          jsPsych.pluginAPI.preloadVideo('stimuli/videos/apple_typical1.mp4')
+          jsPsych.pluginAPI.preloadVideo('stimuli/videos/apple_atypical1.mp4')
+          jsPsych.pluginAPI.preloadVideo('stimuli/videos/apple_typical2.mp4')
+          jsPsych.pluginAPI.preloadVideo('stimuli/videos/apple_atypical2.mp4')
         },
-        stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
-        choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
+        stimulus: "",
+        choices: ["stimuli/videos/apple_typical1.mp4", "stimuli/videos/apple_atypical1.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -179,14 +181,14 @@ timeline.push(preloadV);
         post_trial_gap:0,
         trial_duration: 6000,
         response_ends_trial: false,
-        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="stimuli/videos/apple_atypical_sm.mp4" type="video/mp4"></video></div>',
-		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto"><source src="stimuli/videos/apple_typical_sm.mp4" type="video/mp4"></video></div>']
+        button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
+		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto"><source src="%choice%" type="video/mp4"></video></div>']
     },
     {
         //autoplay right side next
         type: 'audio-button-response-flexiblelocations',
-        stimulus: "stimuli/sounds/acrossTheUniverse_70dB001.wav",
-        choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
+        stimulus: "",
+        choices: ["stimuli/videos/apple_typical1.mp4", "stimuli/videos/apple_atypical1.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -202,7 +204,7 @@ timeline.push(preloadV);
         //autoplay both sides simultaneously
         type: 'audio-button-response-flexiblelocations',
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB002.wav",
-        choices:["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
+        choices:["stimuli/videos/apple_typical2.mp4", "stimuli/videos/apple_atypical2.mp4"],
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
