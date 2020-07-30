@@ -139,6 +139,21 @@ function createTrials(data) {
   }
 
   timeline.push(lwl_trials);
+
+  //try simple video button
+  var plp_trial= {
+    type: "video-keyboard-response",
+    sources: [
+      'stimuli/videos/apple_typical_sm.mp4',
+      'stimuli/videos/apple_atypical_sm.mp4'
+    ],
+    choices: [],
+    width: 500,
+    autoplay: true,
+    trial_ends_after_video: false,
+    response_ends_trial: false
+  }
+  timeline.push(plp_trial)
 /*
 // define 1 plp trials
   var plp_trial = {
