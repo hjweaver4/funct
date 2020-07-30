@@ -141,27 +141,26 @@ function createTrials(data) {
 
   timeline.push(lwl_trials);
 
-  //try simple video button
-  var plp_trial= {
-    type: "video-button-response",
-    sources: [
-      'stimuli/videos/apple_typical_sm.mp4',
-      'stimuli/videos/apple_atypical_sm.mp4'
-    ],
-    choices: [],
-    width: 500,
-    autoplay: true,
-    trial_ends_after_video: false,
-    response_ends_trial: false
+//preload videos
+var preloadV = {
+  type: 'call-function',
+  async: true,
+  func: function(done){
+    jsPsych.getDisplayElement().innerHTML = '<p> Loading... Please wait.</p>'
+    jsPsych.pluginAPI.preloadVideo(video_preload);
   }
-  timeline.push(plp_trial);
-/*
+};
+timeline.push(preloadV);
+
 // define 1 plp trials
   var plp_trial = {
     timeline:[
       {
         //autoplay left side first
         type: 'audio-button-response-flexiblelocations',
+        on_load: function(){
+          jsPsych.getDisplayElement().querySelector('stimuli/videos/apple_atypical_sm.mp4','stimuli/videos/apple_typical_sm.mp4').src = jsPsych.pluginAPI.getVideoBuffer('stimuli/videos/apple_atypical_sm.mp4','stimuli/videos/apple_typical_sm.mp4')
+        },
         stimulus: "stimuli/sounds/acrossTheUniverse_70dB000.wav",
         choices: ["stimuli/videos/apple_atypical_sm.mp4", "stimuli/videos/apple_typical_sm.mp4"],
         set_background: "black-background",
@@ -203,13 +202,13 @@ function createTrials(data) {
         margin_right: ['89px','0px'],
         post_trial_gap:0,
         trial_durations: 6000,
-    	  response_ends_trial: false,
+    	  response_ends_trial: true,
         button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
 		'<div><video id="jspsych-video-button-response-stimulus" width="400" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>']
     }
   ]
 }
-  timeline.push(plp_trial);*/
+  timeline.push(plp_trial);
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -315,7 +314,7 @@ for (var l = 0; l < preload_audio.length; l++) {
   "toothbrush_typical.mp4"*/
 //]
 
-//var video_preload=["stimuli/videos/apple_typical_sm.mp4","stimuli/videos/apple_atypical_sm.mp4"];
+var video_preload=["stimuli/videos/apple_typical_sm.mp4","stimuli/videos/apple_atypical_sm.mp4"];
 
 //for (var m = 0; m < video.length; m++) {
 	//video_preload.push("stimuli/videos/"+video[m]);
