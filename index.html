@@ -147,10 +147,17 @@ var preloadV = {
   async: true,
   func: function(done){
     jsPsych.getDisplayElement().innerHTML = '<p> Loading... Please wait.</p>'
-    jsPsych.pluginAPI.preloadVideo(video_preload);
+    jsPsych.pluginAPI.preloadVideo(video_preload, function(){
+      alert("Preloading done")
+      done({preload: "success"});
+    })
   }
-};
+}
 timeline.push(preloadV);
+
+function vidend() {
+  jsPsych.finishTrial()
+}
 
 // define 1 plp trials
   var plp_trial = {
