@@ -139,6 +139,8 @@ for (var i = 0; i < expLength; i++) {
   plp_stimuli.push(
   {stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
   choices:[videoStart+data[i]['left_video']+videoStop, videoStart+data[i]['right_video']+videoStop],
+  button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
+'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
   set_background:data[i]['background'],
   data:{
   left_video: data[i]['left_video'],
@@ -160,8 +162,8 @@ for (var i = 0; i < expLength; i++) {
     timeline: plp_stimuli,
 	  response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
-'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
+    //button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
+//'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
     data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
     on_finish: function(data) {
@@ -179,8 +181,8 @@ for (var i = 0; i < expLength; i++) {
     timeline: plp_stimuli,
     response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
-'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
+    //button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
+//'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
     data: jsPsych.timelineVariable('data'),
     response_ends_trial: false,
     on_finish: function(data) {
@@ -198,8 +200,8 @@ for (var i = 0; i < expLength; i++) {
     timeline: plp_stimuli,
     response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
-'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
+    //button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['left_video']+videoStop type="video/mp4"></video></div>',
+//'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src=videoStart+data[i]['right_video']+videoStop type="video/mp4"></video></div>'],
     data: jsPsych.timelineVariable('data'),
     response_ends_trial: false,
     on_finish: function(data) {
