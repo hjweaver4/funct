@@ -161,7 +161,7 @@ for (var i = 0; i < expLength; i++) {
 	  response_possible: false,
     post_trial_gap: 0,
     button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="%choice%" type="video/mp4"></video></div>',
-'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="%choice%" type="video/mp4"></video></div>'],
+'<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>'],
     data: jsPsych.timelineVariable('data'),
 	  response_ends_trial: false,
     on_finish: function(data) {
