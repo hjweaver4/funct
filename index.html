@@ -92,7 +92,7 @@ function createTrials(data) {
   //var videoStart = '<video src = "stimuli/videos/'
   //var videoStop = '.mp4" title = "" width="400">'
 
-
+/*
   lwl_stimuli = []
 // set up for a LWL trial with audio and 2 images
   for (var i = 0; i < expLength; i++) {
@@ -127,7 +127,7 @@ function createTrials(data) {
     }
   }
 
-  timeline.push(lwl_trials);
+  timeline.push(lwl_trials);*/
 
 // define 1 plp trials
   var plp_trial = {
@@ -140,8 +140,8 @@ function createTrials(data) {
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
-        margin_left: ['0px','100px'],
-        margin_right: ['89px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['100px','0px'],
         post_trial_gap:0,
         trial_duration: 6500,
         response_ends_trial: false,
@@ -156,8 +156,8 @@ function createTrials(data) {
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
-        margin_left: ['0px','100px'],
-        margin_right: ['89px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['100px','0px'],
         post_trial_gap:0,
         trial_duration: 6500,
         response_ends_trial: false,
@@ -172,8 +172,8 @@ function createTrials(data) {
         set_background: "black-background",
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
-        margin_left: ['0px','100px'],
-        margin_right: ['89px','0px'],
+        margin_left: ['0px','200px'],
+        margin_right: ['100px','0px'],
         post_trial_gap:0,
         trial_durations: 6500,
     	  response_ends_trial: true,
@@ -191,7 +191,7 @@ function createTrials(data) {
   timeline.push(fullscreen_exit)
 };
 
-
+/*
 var imageExt = 'stimuli/images/'
 
 
@@ -224,25 +224,25 @@ var preload_images=[];
 
 for (var k = 0; k < images.length; k++) {
 	preload_images.push(imageExt+images[k]);
-};
+};*/
 
 var audio = [
   "acrossTheUniverse_70dB000.wav",
   "acrossTheUniverse_70dB001.wav",
-  "acrossTheUniverse_70dB002.wav",
-	"AG.wav",
-  "apple_find.wav",
-  "apple_look.wav",
-  "apple_where.wav",
-  "ball_find.wav",
-  "ball_look.wav",
-  "ball_where.wav",
-  "crayon_find.wav",
-  "crayon_look.wav",
-  "crayon_where.wav",
-  "toothbrush_find.wav",
-  "toothbrush_look.wav",
-  "toothbrush_where.wav"
+  "acrossTheUniverse_70dB002.wav"//,
+	//"AG.wav",
+  //"apple_find.wav",
+  //"apple_look.wav",
+  //"apple_where.wav",
+  //"ball_find.wav",
+  //"ball_look.wav",
+  //"ball_where.wav",
+  //"crayon_find.wav",
+  //"crayon_look.wav",
+  //"crayon_where.wav",
+  //"toothbrush_find.wav",
+  //"toothbrush_look.wav",
+  //"toothbrush_where.wav"
 ];
 
 var preload_audio  = [];
@@ -259,7 +259,7 @@ function startExperiment(data) {
 jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
-  preload_images:preload_images,
+  //preload_images:preload_images,
   preload_video: preload_videos,
 	default_iti: 300,
   on_finish: function() {
