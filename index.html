@@ -6,8 +6,6 @@
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
   <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
-  <script src="jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
-  <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
@@ -189,7 +187,7 @@ function createTrials(data) {
     type: 'fullscreen',
     fullscreen_mode: false
   }
-  timeline.push(fullscreen_exit);
+  timeline.push(fullscreen_exit)
 };
 
 
