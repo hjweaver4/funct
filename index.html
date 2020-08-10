@@ -134,87 +134,115 @@ function createTrials(data) {
   timeline.push(lwl_trials);
 */
 
-//define plp trials that read from CSV
-plp_stimuli = []
+
 // set up for a LWL trial with audio and 2 images
 for (var i = 0; i < expLength; i++) {
-  plp_stimuli.push(
-  { //present 1st video
+  //define stimuli variables
+  var cur_stimulus = audioExt+data[i]['auditory_stimulus']+".wav";
+  var cur_left_video = videoStart+data[i]['left_video']+videoStop;
+  var cur_right_video = videoStart+data[i]['right_video']+videoStop;
+  var cur_side1 = data[i]['side1'];
+
+  //define html buttons
+  var cur_left_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
+  var cur_right_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
+  var cur_left_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
+  var cur_right_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
+
+  //define set up visual display
+  var cur_background = data[i]['background'];
+
+  if (cur_side1 == "right") {
+    var button_html_1 = [cur_left_video_button,cur_right_video_button_play];
+    var button_html_2 = [cur_left_video_button_play,cur_right_video_button];
+  } else {
+    var button_html_1 = [cur_left_video_button_play,cur_right_video_button];
+    var button_html_2 = [cur_left_video_button,cur_right_video_button_play];
+  }
+
+  var plp_trial_1: {
+    //present 1st video
     type: 'audio-button-response-flexiblelocations',
+    stimulus: cur_stimulus,
+    choices:[cur_left_video,cur_right_video],
+    button_html: button_html_1,
     trial_duration: 6300,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
     margin_left: ['0px','200px'],
     margin_right: ['100px','0px'],
-    stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
-    choices:[videoStart+data[i]['left_video']+videoStop, videoStart+data[i]['right_video']+videoStop],
     response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-    '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="%choice%" type="video/mp4"></video></div>'],
     response_ends_trial: false,
-    set_background:data[i]['background'],
+    set_background: cur_background,
     data:{
-    left_video: data[i]['left_video'],
-    right_video: data[i]['right_video'],
-    target_side: data[i]['target_side'],
-    correct_response: data[i]['correct_response'],
-    background: data[i]['background']},
+      side1: data[i]['side1'],
+      left_video: data[i]['left_video'],
+      right_video: data[i]['right_video'],
+      target_side: data[i]['target_side'],
+      correct_response: data[i]['correct_response'],
+      background: data[i]['background']},
     on_finish: function(data) {
       data.correct = data.button_pressed == data.correct_response;
     }
-  },
-  { //present 2nd video
+  }
+  timeline.push(plp_trial_1);
+
+  var plp_trial_2: {
+    //present 2nd video
     type: 'audio-button-response-flexiblelocations',
+    stimulus: cur_stimulus,
+    choices:[cur_left_video,cur_right_video],
+    button_html: button_html_2,
     trial_duration: 6300,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
     margin_left: ['0px','200px'],
     margin_right: ['100px','0px'],
-    stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
-    choices:[videoStart+data[i]['left_video']+videoStop, videoStart+data[i]['right_video']+videoStop],
     response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="%choice%" type="video/mp4"></video></div>',
-    '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>'],
     response_ends_trial: false,
-    set_background:data[i]['background'],
+    set_background: cur_background,
     data:{
-    left_video: data[i]['left_video'],
-    right_video: data[i]['right_video'],
-    target_side: data[i]['target_side'],
-    correct_response: data[i]['correct_response'],
-    background: data[i]['background']},
+      side1: data[i]['side1'],
+      left_video: data[i]['left_video'],
+      right_video: data[i]['right_video'],
+      target_side: data[i]['target_side'],
+      correct_response: data[i]['correct_response'],
+      background: data[i]['background']},
     on_finish: function(data) {
       data.correct = data.button_pressed == data.correct_response;
     }
-  },
-  { //present both videos
+  }
+  timeline.push(plp_trial_2);
+
+  var plp_trial_3: {
+    //present both videos
     type: 'audio-button-response-flexiblelocations',
+    stimulus: cur_stimulus,
+    choices:[cur_left_video,cur_right_video],
+    button_html: [cur_left_button_play, cur_right_button_play],
     trial_duration: 6300,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
     margin_left: ['0px','200px'],
     margin_right: ['100px','0px'],
-    stimulus: audioExt+data[i]['auditory_stimulus']+".wav",
-    choices:[videoStart+data[i]['left_video']+videoStop, videoStart+data[i]['right_video']+videoStop],
     response_possible: false,
     post_trial_gap: 0,
-    button_html: ['<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>',
-    '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="%choice%" type="video/mp4"></video></div>'],
     response_ends_trial: false,
-    set_background:data[i]['background'],
+    set_background: cur_background,
     data:{
-    left_video: data[i]['left_video'],
-    right_video: data[i]['right_video'],
-    target_side: data[i]['target_side'],
-    correct_response: data[i]['correct_response'],
-    background: data[i]['background']},
+      side1: data[i]['side1'],
+      left_video: data[i]['left_video'],
+      right_video: data[i]['right_video'],
+      target_side: data[i]['target_side'],
+      correct_response: data[i]['correct_response'],
+      background: data[i]['background']},
     on_finish: function(data) {
       data.correct = data.button_pressed == data.correct_response;
     }
-  },
-)
+  }
+  timeline.push(plp_trial_3);
 }
 
 /*
