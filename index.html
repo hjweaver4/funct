@@ -243,7 +243,7 @@ for (var i = 0; i < expLength; i++) {
   timeline.push(fullscreen_exit)
 };
 
-/*
+
 var imageExt = 'stimuli/images/'
 
 
@@ -277,7 +277,7 @@ var preload_images=[];
 for (var k = 0; k < images.length; k++) {
 	preload_images.push(imageExt+images[k]);
 };
-*/
+
 
 var audio = [
   "acrossTheUniverse_70dB000.wav",
@@ -339,8 +339,7 @@ var audio = [
   "yellow_70dB026.wav",
   "yellow_70dB027.wav",
   "yellow_70dB028.wav",
-  "yellow_70dB028.wav"
-/*
+  "yellow_70dB028.wav",
   "AG.wav",
   "apple_find.wav",
   "apple_look.wav",
@@ -354,7 +353,6 @@ var audio = [
   "toothbrush_find.wav",
   "toothbrush_look.wav",
   "toothbrush_where.wav"
-*/
 ];
 
 var preload_audio  = [];
@@ -402,18 +400,6 @@ jsPsych.init({ //js.psych initializes
 });
 };
 
-/*function startExperimentPLP(data_plp, tabletop_plp) {
-	createPLPTrials(data_plp,tabletop_plp);
-jsPsych.init({
-  timeline: timeline,
-  preload_audio:preload_audio,
-  preload_videos:preload_videos,
-	default_iti: 300,
-  on_finish: function() {
-    jsPsych.data.displayData();
-  }
-});
-};*/
 
 /*
 function save_data(experiment, version,identifier, data){
