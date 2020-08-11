@@ -141,7 +141,7 @@ for (var i = 0; i < expLength; i++) {
   var cur_stimulus = audioExt+data[i]['auditory_stimulus']+".wav";
   var cur_left_video = videoStart+data[i]['left_video']+videoStop;
   var cur_right_video = videoStart+data[i]['right_video']+videoStop;
-  var cur_side1 = data[i]['side1'];
+  var cur_side = data[i]['playing_side'];
 
   //define html buttons
   var cur_left_video_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
@@ -152,20 +152,20 @@ for (var i = 0; i < expLength; i++) {
   //define set up visual display
   var cur_background = data[i]['background'];
 
-  if (cur_side1 == "right") {
-    var button_html_1 = [cur_left_video_button,cur_right_video_button_play];
-    var button_html_2 = [cur_left_video_button_play,cur_right_video_button];
+  if (cur_side == "right") {
+    var button_html = [cur_left_video_button,cur_right_video_button_play];
+  } else if (cur_side == "left"){
+    var button_html = [cur_left_video_button_play,cur_right_video_button];
   } else {
-    var button_html_1 = [cur_left_video_button_play,cur_right_video_button];
-    var button_html_2 = [cur_left_video_button,cur_right_video_button_play];
+    var button_html = [cur_left_video_button_play,cur_right_video_button];
   }
 
-  var plp_trial_1= {
+  var plp_trial= {
     //present 1st video
     type: 'audio-button-response-flexiblelocations',
     stimulus: cur_stimulus,
     choices:[cur_left_video,cur_right_video],
-    button_html: button_html_1,
+    button_html: button_html,
     trial_duration: 6300,
     margin_top: ['300px','300px'],
     margin_bottom: ['0px','0px'],
@@ -186,8 +186,8 @@ for (var i = 0; i < expLength; i++) {
       data.correct = data.button_pressed == data.correct_response;
     }
   }
-  timeline.push(plp_trial_1);
-
+  timeline.push(plp_trial);
+/*
   var plp_trial_2= {
     //present 2nd video
     type: 'audio-button-response-flexiblelocations',
