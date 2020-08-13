@@ -14,7 +14,7 @@
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
   div.absolute {
-    position: relative;
+    position: absolute;
     left: 10px;
     right: 0px;
     top: 10px;
@@ -338,7 +338,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_video: preload_videos,
+  //preload_video: preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
