@@ -6,6 +6,7 @@
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
   <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
@@ -13,7 +14,7 @@
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
   div.absolute {
-    position: absolute;
+    position: relative;
     left: 10px;
     right: 0px;
     top: 10px;
@@ -87,6 +88,15 @@ function createTrials(data) {
   }
 
   timeline.push(welcome);
+
+  var manual_vid_preload = {
+    type: "call-function",
+    async: true,
+    func: function(){
+      jsPsych.pluginAPI.preloadVideo(preload_video)
+    }
+  }
+  timeline.push(manual_vid_preload);
 
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
@@ -164,6 +174,10 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
+        on_load: function(){
+          jsPsych.getDisplyElement().querySelector("jspsych-video-button-response-stimulus").src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+          jsPsych.getDisplyElement().querySelector("jspsych-video-button-response-stimulus").src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+        },
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
