@@ -89,19 +89,6 @@ function createTrials(data) {
 
   timeline.push(welcome);
 
-  var manual_vid_preload = {
-    type: "call-function",
-    async: true,
-    func: function (done) {
-            jsPsych.getDisplayElement().innerHTML = '<p>Loading... Please wait.</p>'
-            jsPsych.pluginAPI.preloadVideo(preload_videos, function () {
-                alert("Preloading 1 done")
-                done({ preload: "success" });
-            })
-        }
-  }
-  timeline.push(manual_vid_preload);
-
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
@@ -178,10 +165,6 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
-        on_load: function(){
-          jsPsych.getDisplayElement().querySelector("jspsych-video-button-response-stimulus").src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-          jsPsych.getDisplayElement().querySelector("jspsych-video-button-response-stimulus").src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-        },
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
@@ -198,61 +181,6 @@ function createTrials(data) {
       timeline.push(plp_trials);
     }
 }
-
-/*
-// PLP trials
-for (var i = 0; i < expLength; i++) {
-  //define stimuli variables
-  var cur_stimulus = audioExt+data[i]['auditory_stimulus']+".wav";
-  var cur_left_video = videoStart+data[i]['left_video']+videoStop;
-  var cur_right_video = videoStart+data[i]['right_video']+videoStop;
-  var cur_side = data[i]['playing_side'];
-
-  //define html buttons
-  var cur_left_video_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
-  var cur_right_video_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
-  var cur_left_video_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
-  var cur_right_video_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
-
-  //define set up visual display
-  var cur_background = data[i]['background'];
-
-  if (cur_side == "right") {
-    var button_html = [cur_left_video_button,cur_right_video_button_play];
-  } else if (cur_side == "left"){
-    var button_html = [cur_left_video_button_play,cur_right_video_button];
-  } else {
-    var button_html = [cur_left_video_button_play,cur_right_video_button_play];
-  }
-
-  var plp_trial= {
-    //present 1st video
-    type: 'audio-button-response-flexiblelocations',
-    stimulus: cur_stimulus,
-    choices:[cur_left_video,cur_right_video],
-    button_html: button_html,
-    trial_duration: 6300,
-    margin_top: ['300px','300px'],
-    margin_bottom: ['0px','0px'],
-    margin_left: ['0px','200px'],
-    margin_right: ['100px','0px'],
-    response_possible: false,
-    post_trial_gap: 0,
-    response_ends_trial: false,
-    set_background: cur_background,
-    data:{
-      side1: data[i]['side1'],
-      left_video: data[i]['left_video'],
-      right_video: data[i]['right_video'],
-      target_side: data[i]['target_side'],
-      cur_side: data[i]['playing_side'],
-      correct_response: data[i]['correct_response'],
-      background: data[i]['background']},
-    on_finish: function(data) {
-      data.correct = data.button_pressed == data.correct_response;
-    }}
-}
-  timeline.push(plp_trial);*/
 
   var fullscreen_exit = {
     type: 'fullscreen',
@@ -358,7 +286,7 @@ var audio = [
   "yellow_70dB027.wav",
   "yellow_70dB028.wav",
   "yellow_70dB028.wav",
-  "AG.wav",
+  "check_out.wav",
   "apple_find.wav",
   "apple_look.wav",
   "apple_where.wav",
@@ -410,7 +338,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  //preload_video: preload_videos,
+  preload_video: preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
