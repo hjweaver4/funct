@@ -94,7 +94,7 @@ function createTrials(data) {
     async: true,
     func: function (done) {
             jsPsych.getDisplayElement().innerHTML = '<p>Loading... Please wait.</p>'
-            jsPsych.pluginAPI.preloadVideo(videos_vw1, function () {
+            jsPsych.pluginAPI.preloadVideo(preload_videos, function () {
                 alert("Preloading 1 done")
                 done({ preload: "success" });
             })
