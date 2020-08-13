@@ -92,9 +92,13 @@ function createTrials(data) {
   var manual_vid_preload = {
     type: "call-function",
     async: true,
-    func: function(){
-      jsPsych.pluginAPI.preloadVideo(preload_videos)
-    }
+    func: function (done) {
+            jsPsych.getDisplayElement().innerHTML = '<p>Loading... Please wait.</p>'
+            jsPsych.pluginAPI.preloadVideo(videos_vw1, function () {
+                alert("Preloading 1 done")
+                done({ preload: "success" });
+            })
+        }
   }
   timeline.push(manual_vid_preload);
 
@@ -406,7 +410,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_video: preload_videos,
+  //preload_video: preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
