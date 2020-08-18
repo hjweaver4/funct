@@ -309,7 +309,7 @@ for (var l = 0; l < preload_audio.length; l++) {
 
 var videoExt = 'stimuli/videos/'
 
-var video= [
+var vids = [
   "apple_typical.mp4",
   "apple_atypical.mp4",
   "ball_typical.mp4",
@@ -325,11 +325,15 @@ var video= [
   "Planets6.mp4"
 ];
 
-var preload_videos=[];
+jsPsych.pluginAPI.preloadVideo(vids, function(){
+      startExperiment(data)
+    });
 
-for (var k = 0; k < video.length; k++) {
-	preload_videos.push(videoExt+video[k]);
-};
+//var preload_videos=[];
+
+//for (var k = 0; k < video.length; k++) {
+	//preload_videos.push(videoExt+video[k]);
+//};
 
 function startExperiment(data) {
 	createTrials(data);
@@ -338,7 +342,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  preload_video: preload_videos,
+  //preload_video: preload_videos,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
