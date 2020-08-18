@@ -165,6 +165,10 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
+        on_load: function(){
+          jsPsych.getDisplayElement().querySelector('jspsych-video-button-response-stimulus').src = jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
+          jsPsych.getDisplayElement().querySelector('jspsych-video-button-response-stimulus').src = jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
+        },
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
