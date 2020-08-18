@@ -96,6 +96,16 @@ function createTrials(data) {
   var videoStart = "stimuli/videos/"
   var videoStop = ".mp4"
 
+  var preloadV2 = {
+    type: 'call-function',
+    func: function(){
+      for (var d = 0; d < preload_vids.length; d++) {
+        jsPsych.pluginAPI.getVideoBuffer(preload_vids[d]);
+      };
+    }
+  }
+  timeline.push(preloadV2);
+
 // define the experimental procedure
   for (var i = 0; i < expLength; i++) {
     //define stimuli variables
@@ -150,6 +160,7 @@ function createTrials(data) {
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
       }
+
       // define plp trials
       var plp_trials = {
         type: 'audio-button-response-flexiblelocations',
@@ -165,10 +176,10 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
-        on_start: function(){
-          jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
-          jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
-        },
+        //on_start: function(plp_trials){
+        //  jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
+        //  jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
+        //},
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
@@ -338,6 +349,7 @@ for (var m = 0; m < video.length; m++) {
 jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
       startExperiment(data)
     });
+
 
 function startExperiment(data) {
 	createTrials(data);
