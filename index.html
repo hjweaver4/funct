@@ -96,16 +96,6 @@ function createTrials(data) {
   var videoStart = "stimuli/videos/"
   var videoStop = ".mp4"
 
-  var preloadV2 = {
-    type: 'call-function',
-    func: function(){
-      for (var d = 0; d < preload_vids.length; d++) {
-        jsPsych.pluginAPI.getVideoBuffer(preload_vids[d]);
-      };
-    }
-  }
-  timeline.push(preloadV2);
-
 // define the experimental procedure
   for (var i = 0; i < expLength; i++) {
     //define stimuli variables
@@ -176,10 +166,10 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
-        //on_start: function(plp_trials){
-        //  jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
-        //  jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
-        //},
+        on_start: function(plp_trials){
+          jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
+          jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
+        },
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
