@@ -165,7 +165,7 @@ function createTrials(data) {
         post_trial_gap: 0,
         response_ends_trial: false,
         set_background: cur_background,
-        on_load: function(){
+        on_start: function(){
           jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
           jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
         },
