@@ -33,26 +33,16 @@
 /* Enter subject id */
 var subject_id = prompt("Enter subject id", "test");
 //var trial_order = prompt("Order (1 or 2)","1");
-var plp_order = prompt("Order(1 or 2)","1");
+var order = prompt("Order(1 or 2)","1");
 
 // read from a public spreadsheet for LWL trials
 // use the publish link NOT the sharing link
-/*
+
 if (trial_order == "1") {
-	var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQf0TTaR_AlCKCIKsB7mchq6TLzKHWlnidWmepBMuro3A5zNWLsrjUY-dGJmGJvX_QLOD85GKIhPLHS/pub?gid=2061099652&single=true&output=csv'
+	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder1.csv'
 } else if (trial_order =="2") {
-	var publicSpreadsheetUrl =
-	'https://docs.google.com/spreadsheets/d/e/2PACX-1vQf0TTaR_AlCKCIKsB7mchq6TLzKHWlnidWmepBMuro3A5zNWLsrjUY-dGJmGJvX_QLOD85GKIhPLHS/pub?gid=37901528&single=true&output=csv'
+	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder2.csv'
 }
-*/
-
-//var publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?gid=2061099652&single=true&output=csv'
-
-//use a spreadsheet that only has one line per stim
-var publicSpreadsheetURL = 'https://hjweaver4.github.io/funct/orders/functOrder1.csv'
-// read from a public spreadsheet for video trials
-///var plp_publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRRqgdruYPdxuUKqAlE0x85QwIRQuGDljRbBEbk3ixv0dEw7bFFQNLdB6M10LWNRS_Ae-5XR_X9P5O/pub?output=csv';
-
 
 //lwl orders
 Papa.parse(publicSpreadsheetURL,{
