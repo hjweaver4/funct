@@ -38,7 +38,7 @@ block,trial_number,auditory_stimulus,left_image,right_image,target_label,left_vi
 8,37,yellow_70dB003,,,,toothbrush_atypical,toothbrush_typical,left,0,both,black-background,PLP
 8,38,yellow_70dB004,,,,Kaleidoscope6,Kaleidoscope6,,,both,black-background,PLP
 9,39,acrossTheUniverse_70dB005,,,,apple_atypical,apple_typical,left,0,both,black-background,PLP
-9,40,acrossTheUniverse_70dB006,,,,crayon,crayon_atypical,right,1,both,black-background,PLP
+9,40,acrossTheUniverse_70dB006,,,,crayon_typical,crayon_atypical,right,1,both,black-background,PLP
 9,41,acrossTheUniverse_70dB007,,,,toothbrush_atypical,toothbrush_typical,left,0,both,black-background,PLP
 9,42,acrossTheUniverse_70dB008,,,,ball_typical,ball_atypical,right,1,both,black-background,PLP
 9,43,acrossTheUniverse_70dB009,,,,Drops6,Drops6,,,both,black-background,PLP
