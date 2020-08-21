@@ -14,7 +14,7 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
 	jsPsych.pluginAPI.registerPreload('audio-button-response-flexiblelocations', 'stimulus', 'audio');
 
 	plugin.info = {
-		name: 'audio-button-response',
+		name: 'audio-button-response-flexiblelocations',
 		description: '',
 		parameters: {
 			stimulus: {
@@ -144,6 +144,8 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
 	  html += '<div class="jspsych-audio-button-response-button" style="cursor: pointer; display: inline-block; margin-top:'+ trial.margin_top[i]+'; margin-bottom:'+ trial.margin_bottom[i]+'; margin-right:'+ trial.margin_right[i]+';margin-left:' + trial.margin_left[i]+'; '+'" id="jspsych-audio-button-response-button-' + i +'" data-choice="'+i+'">'+str+'</div>';
     }
 		html += '</div>';
+		
+		console.log(html);
 
 		//show prompt if there is one
 		if (trial.prompt !== null) {
