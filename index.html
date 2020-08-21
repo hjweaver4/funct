@@ -102,10 +102,10 @@ function createTrials(data) {
     // var cur_left_video_button_play = '<div><video id="left-video-play" width="450" preload="auto" autoplay><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
     // var cur_right_video_button_play = '<div><video id="right-video-play" width="450" preload="auto" autoplay><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
 	
-    var cur_left_video_button = '<div><video id="left-video" width="450" ></div>';
-    var cur_right_video_button = '<div><video id="right-video" width="450" ></div>';
-    var cur_left_video_button_play = '<div><video id="left-video-play" width="450" autoplay></div>';
-    var cur_right_video_button_play = '<div><video id="right-video-play" width="450" autoplay></div>';
+    var cur_left_video_button = '<div><video id="left-video-"'+i+' width="450" ></div>';
+    var cur_right_video_button = '<div><video id="right-video"'+i+' width="450" ></div>';
+    var cur_left_video_button_play = '<div><video id="left-video-play-"'+i+' width="450" autoplay></div>';
+    var cur_right_video_button_play = '<div><video id="right-video-play-"'+i+' width="450" autoplay></div>';
 
     //define set up visual display
     var cur_background = data[i]['background'];
@@ -156,9 +156,9 @@ function createTrials(data) {
 		  on_load: function() {
   			console.log("trial begins");
   			//jsPsych.getDisplayElement().querySelector('#left-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			jsPsych.getDisplayElement().querySelector('#left-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+			jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
   			//jsPsych.getDisplayElement().querySelector('#right-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			jsPsych.getDisplayElement().querySelector('#right-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
   			},
         stimulus: cur_stimulus,
         choices:[cur_left_video,cur_right_video],
