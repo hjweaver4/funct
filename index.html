@@ -327,9 +327,9 @@ for (var m = 0; m < video.length; m++) {
 	preload_vids.push(videoExt+video[k]);
 };
 
-jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
-      startExperiment(data)
-    });
+// jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
+//       startExperiment(data)
+//     });
 
 //for (var e = 0 ; e < preload_vids.length;e++) {
 //  jsPsych.pluginAPI.getVideoBuffer(preload_vids[e]);
@@ -343,7 +343,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  //preload_video: preload_videos,
+  preload_video: preload_vids,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();
