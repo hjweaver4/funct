@@ -327,9 +327,12 @@ for (var m = 0; m < video.length; m++) {
 	preload_vids.push(videoExt+video[k]);
 };
 
-// jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
-//       startExperiment(data)
-//     });
+console.log(preload_vids);
+
+jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
+	console.log("preload successful");
+      startExperiment(data)
+    });
 
 //for (var e = 0 ; e < preload_vids.length;e++) {
 //  jsPsych.pluginAPI.getVideoBuffer(preload_vids[e]);
