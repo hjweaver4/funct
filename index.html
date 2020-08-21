@@ -102,10 +102,10 @@ function createTrials(data) {
     // var cur_left_video_button_play = '<div><video id="left-video-play" width="450" preload="auto" autoplay><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
     // var cur_right_video_button_play = '<div><video id="right-video-play" width="450" preload="auto" autoplay><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
 	
-    var cur_left_video_button = '<div><video id="left-video" width="450" preload="auto"></video></div>';
-    var cur_right_video_button = '<div><video id="right-video" width="450" preload="auto"></video></div>';
-    var cur_left_video_button_play = '<div><video id="left-video-play" width="450" preload="auto" autoplay></video></div>';
-    var cur_right_video_button_play = '<div><video id="right-video-play" width="450" preload="auto" autoplay></video></div>';
+    var cur_left_video_button = '<div><video id="left-video" width="450" ></div>';
+    var cur_right_video_button = '<div><video id="right-video" width="450" ></div>';
+    var cur_left_video_button_play = '<div><video id="left-video-play" width="450" autoplay></div>';
+    var cur_right_video_button_play = '<div><video id="right-video-play" width="450" autoplay></div>';
 
     //define set up visual display
     var cur_background = data[i]['background'];
@@ -146,6 +146,9 @@ function createTrials(data) {
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
       }
+	  
+	  console.log(button_html);
+	  console.log(cur_left_video);
 
       // define plp trials
       var plp_trials = {
