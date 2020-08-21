@@ -37,7 +37,7 @@
  }
 
  .jspsych-middle {
-   align-items: center;
+   align-items: top;
  }
 
 /* fonts and type */
@@ -59,7 +59,7 @@
 .jspsych-btn {
   display: inline-block;
   /* padding: 6px 12px; */
-  padding: 0px; 
+  padding: 0px;
   margin: 0px;
   font-size: 14px;
   font-weight: 400;
