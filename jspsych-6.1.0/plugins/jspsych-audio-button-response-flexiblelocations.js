@@ -92,6 +92,18 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
         default: false,
         description: 'If true, then the trial will end as soon as the audio file finishes playing.'
       },
+	  preload_video_button: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Preloaded Video Button',
+        default: false,
+        description: 'Set to true if button is a preloaded video.'
+	  },
+	  selector_ids: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Selector IDs for preloaded video',
+        default: null,
+        description: 'IDs corresponding to html of preloaded videos'
+	  }
     }
   }
 
@@ -160,6 +172,11 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
         after_response(choice);
       });
     }
+	
+	if (trial.preload_video_button) {
+		jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[0]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[0]);
+		jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[1]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[1]);
+	}
 
     // store response
     var response = {

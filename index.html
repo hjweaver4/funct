@@ -145,10 +145,13 @@ function createTrials(data) {
       //define which video plays first
       if (cur_side == "right") {
         var button_html = [cur_left_video_button,cur_right_video_button_play];
+		var selector_ids = ['left-video','right-video-play'];
       } else if (cur_side == "left"){
         var button_html = [cur_left_video_button_play,cur_right_video_button];
+		var selector_ids = ['left-video-play','right-video'];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
+		var selector_ids = ['left-video-play','right-video-play'];
       }
 	  
 	  console.log(button_html);
@@ -159,20 +162,22 @@ function createTrials(data) {
       // define plp trials
       var plp_trials = {
         type: 'audio-button-response-flexiblelocations',
-		  on_load: function() {
-  			console.log("trial begins");
-  			//jsPsych.getDisplayElement().querySelector('#left-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			//jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-  			//jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			//jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			jsPsych.getDisplayElement().querySelector('#left-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-  			jsPsych.getDisplayElement().querySelector('#right-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			jsPsych.getDisplayElement().querySelector('#left-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-  			jsPsych.getDisplayElement().querySelector('#right-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-  			},
+			// 		  on_load: function() {
+			//   			console.log("trial begins");
+			//   			//jsPsych.getDisplayElement().querySelector('#left-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+			// //jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+			//   			//jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			// //jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			// jsPsych.getDisplayElement().querySelector('#left-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+			//   			jsPsych.getDisplayElement().querySelector('#right-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			// jsPsych.getDisplayElement().querySelector('#left-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+			//   			jsPsych.getDisplayElement().querySelector('#right-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			//   			},
+			preload_video_button: true,
         stimulus: cur_stimulus,
         choices:[cur_left_video,cur_right_video],
         button_html: button_html,
+			selector_ids: selector_ids,
         trial_duration: 6300,
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
