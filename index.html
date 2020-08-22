@@ -165,6 +165,8 @@ function createTrials(data) {
 			//jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
   			//jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
 			//jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+			jsPsych.getDisplayElement().querySelector('#left-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+  			jsPsych.getDisplayElement().querySelector('#right-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
 			jsPsych.getDisplayElement().querySelector('#left-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
   			jsPsych.getDisplayElement().querySelector('#right-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
   			},
