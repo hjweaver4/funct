@@ -174,8 +174,9 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
     }
 	
 	if (trial.preload_video_button) {
-		jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[0]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[0]);
-		jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[1]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[1]);
+		for (var j = 0; i < trial.choices.length; j++) {
+			jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[j]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[j]);
+		}
 	}
 
     // store response
