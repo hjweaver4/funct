@@ -174,7 +174,7 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
     }
 	
 	if (trial.preload_video_button) {
-		for (var j = 0; i < trial.choices.length; j++) {
+		for (var j = 0; j < trial.choices.length; j++) {
 			jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[j]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[j]);
 		}
 	}
