@@ -157,9 +157,9 @@ function createTrials(data) {
         type: 'audio-button-response-flexiblelocations',
 		  on_load: function() {
   			console.log("trial begins");
-  			jsPsych.getDisplayElement().querySelector('#left-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
+  			//jsPsych.getDisplayElement().querySelector('#left-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
 			jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-  			jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
+  			//jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
 			jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
   			},
         stimulus: cur_stimulus,
