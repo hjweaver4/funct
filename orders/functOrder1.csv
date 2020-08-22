@@ -46,4 +46,4 @@ block,trial_number,auditory_stimulus,left_image,right_image,target_label,left_vi
 10,45,yellow_70dB006,,,,ball_atypical,ball_typical,left,0,both,black-background,PLP
 10,46,yellow_70dB007,,,,apple_typical,apple_atypical,right,1,both,black-background,PLP
 10,47,yellow_70dB008,,,,crayon_atypical,crayon_typical,left,0,both,black-background,PLP
-10,48,yellow_70dB009,,,,Planets6,Planets6,,,both,black-background,PLP
+10,48,yellow_70dB009,,,,crayon_atypical,crayon_typical,,,both,black-background,PLP
