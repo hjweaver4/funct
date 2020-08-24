@@ -35,7 +35,7 @@ var subject_id = prompt("Enter subject id", "test");
 //var trial_order = prompt("Order (1 or 2)","1");
 var trial_order = prompt("Order(1 or 2)","1");
 
-// read from a public spreadsheet for LWL trials
+// read from a public spreadsheet for  trials
 // use the publish link NOT the sharing link
 
 if (trial_order == "1") {
@@ -131,7 +131,7 @@ function createTrials(data) {
           data.correct = data.button_pressed == data.correct_response;
         }
       }
-        //timeline.push(lwl_trials);
+        timeline.push(lwl_trials);
     } else {
       //define which video plays first
       if (cur_side == "right") {
@@ -148,22 +148,11 @@ function createTrials(data) {
       // define plp trials
       var plp_trials = {
         type: 'audio-button-response-flexiblelocations',
-			// 		  on_load: function() {
-			//   			console.log("trial begins");
-			//   			//jsPsych.getDisplayElement().querySelector('#left-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			// //jsPsych.getDisplayElement().querySelector('#left-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			//   			//jsPsych.getDisplayElement().querySelector('#right-video-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			// //jsPsych.getDisplayElement().querySelector('#right-video-play-'+i).src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			// jsPsych.getDisplayElement().querySelector('#left-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			//   			jsPsych.getDisplayElement().querySelector('#right-video').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			// jsPsych.getDisplayElement().querySelector('#left-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_left_video);
-			//   			jsPsych.getDisplayElement().querySelector('#right-video-play').src = jsPsych.pluginAPI.getVideoBuffer(cur_right_video);
-			//   			},
-			preload_video_button: true,
+			  preload_video_button: true,
         stimulus: cur_stimulus,
         choices:[cur_left_video,cur_right_video],
         button_html: button_html,
-			selector_ids: selector_ids,
+			  selector_ids: selector_ids,
         trial_duration: 6300,
         margin_top: ['300px','300px'],
         margin_bottom: ['0px','0px'],
@@ -340,16 +329,6 @@ for (var m = 0; m < video.length; m++) {
 };
 
 console.log(preload_vids);
-
-// jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
-// 	console.log("preload successful");
-//       startExperiment(data)
-//     });
-
-//for (var e = 0 ; e < preload_vids.length;e++) {
-//  jsPsych.pluginAPI.getVideoBuffer(preload_vids[e]);
-//};
-
 
 function startExperiment(data) {
 	createTrials(data);
