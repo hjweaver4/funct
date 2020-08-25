@@ -79,6 +79,13 @@ function createTrials(data) {
 
   timeline.push(welcome);
 
+  var audio_test = {
+    type: "audio-keyboard-response",
+    stimulus:"stimuli/sounds/wow_cool.wav",
+    choices:['space']
+  }
+  timeline.push(audio_test);
+
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
