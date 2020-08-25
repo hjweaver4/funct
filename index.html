@@ -5,7 +5,7 @@
   <title>Funct Experiment</title>
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
-  <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
@@ -82,7 +82,8 @@ function createTrials(data) {
   var audio_test = {
     type: "audio-keyboard-response",
     stimulus:"stimuli/sounds/wow_cool.wav",
-    choices:['space']
+    choices:['space'],
+    prompt: "<p> Please turn the volume up or down, so that the volume resembles a person's voice in the room. <b> When you think the level is comfortable for your baby, please press the space bar.</b> </p>"
   }
   timeline.push(audio_test);
 
