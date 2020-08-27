@@ -81,7 +81,7 @@ function createTrials(data) {
 
   var audio_test = {
     type: "audio-keyboard-response",
-    stimulus:"stimuli/sounds/wow_cool.wav",
+    stimulus:"stimuli/sounds/wow_cool_x4.wav",
     choices:['space'],
     prompt: "<p> Please turn the volume up or down, so that the volume resembles a person's voice in the room. <br> When you think the level is comfortable for your baby, please press the space bar.</br> </p>"
   }
@@ -167,7 +167,7 @@ function createTrials(data) {
         margin_left: ['0px','200px'],
         margin_right: ['100px','0px'],
         response_possible: false,
-        post_trial_gap: 0,
+        post_trial_gap: 1000,
         response_ends_trial: false,
         set_background: cur_background,
         data:{
@@ -291,6 +291,7 @@ var audio = [
   "yellow_70dB027.wav",
   "yellow_70dB028.wav",
   "yellow_70dB028.wav",
+  "wow_cool_x4.wav",
   "check_out.wav",
   "apple_find.wav",
   "apple_look.wav",
