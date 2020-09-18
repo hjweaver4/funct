@@ -5,11 +5,11 @@
   <title>Funct Experiment</title>
   <meta charset="utf-8"/>
   <script src="jspsych-6.1.0/jspsych.js"> </script>
-  <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-audio-button-response-flexiblelocations.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.min.js"></script>
   <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css",type="text/css"> </link>
   <link href="css/jspsych.css" rel="stylesheet" type="text/css"></link>
   <style>
@@ -23,7 +23,7 @@
   </style>
 </head>
 <body>
-  <div id="jspsych-lwl"></div>
+  <div id="funct-lwl"></div>
 </body>
 
 <script>
@@ -35,7 +35,7 @@ var subject_id = prompt("Enter subject id", "test");
 //var trial_order = prompt("Order (1 or 2)","1");
 var trial_order = prompt("Order(1 or 2)","1");
 
-// read from a public spreadsheet for LWL trials
+// read from a public spreadsheet for  trials
 // use the publish link NOT the sharing link
 
 if (trial_order == "1") {
@@ -79,6 +79,14 @@ function createTrials(data) {
 
   timeline.push(welcome);
 
+  var audio_test = {
+    type: "audio-keyboard-response",
+    stimulus:"stimuli/sounds/wow_cool_x4.wav",
+    choices:['space'],
+    prompt: "<p> Please turn the volume up or down, so that the volume resembles a person's voice in the room. <br> Please tell the experimenter when you think the level is comfortable for your baby.</br> </p>"
+  }
+  timeline.push(audio_test);
+
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
@@ -97,10 +105,10 @@ function createTrials(data) {
     var cur_side = data[i]['playing_side'];
 
     //define html buttons
-    var cur_left_video_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
-    var cur_right_video_button = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto"><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
-    var cur_left_video_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_left_video+'" type="video/mp4"></video></div>';
-    var cur_right_video_button_play = '<div><video id="jspsych-video-button-response-stimulus" width="450" preload="auto" autoplay><source src="'+cur_right_video+'" type="video/mp4"></video></div>';
+    var cur_left_video_button = '<div><video id="left-video" width="450" ></div>';
+    var cur_right_video_button = '<div><video id="right-video" width="450" ></div>';
+    var cur_left_video_button_play = '<div><video id="left-video-play" width="450" autoplay></div>';
+    var cur_right_video_button_play = '<div><video id="right-video-play" width="450" autoplay></div>';
 
     //define set up visual display
     var cur_background = data[i]['background'];
@@ -112,9 +120,10 @@ function createTrials(data) {
         stimulus: cur_stimulus,
         choices: cur_images,
         set_background: cur_background,
-        trial_duration: 4500,
-        margin_top: ['300px','300px'],
-        margin_bottom: ['0px','0px'],
+        trial_duration: 4000,
+        //tiral_duration: 120000,
+        margin_top: ['0px','0px'],
+        margin_bottom: ['100px','100px'],
         margin_left: ['0px','200px'],
         margin_right: ['89px','0px'],
         response_ends_trial: false,
@@ -135,31 +144,32 @@ function createTrials(data) {
       //define which video plays first
       if (cur_side == "right") {
         var button_html = [cur_left_video_button,cur_right_video_button_play];
+		var selector_ids = ['left-video','right-video-play'];
       } else if (cur_side == "left"){
         var button_html = [cur_left_video_button_play,cur_right_video_button];
+		var selector_ids = ['left-video-play','right-video'];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
+		var selector_ids = ['left-video-play','right-video-play'];
       }
 
       // define plp trials
       var plp_trials = {
         type: 'audio-button-response-flexiblelocations',
+			  preload_video_button: true,
         stimulus: cur_stimulus,
         choices:[cur_left_video,cur_right_video],
         button_html: button_html,
+			  selector_ids: selector_ids,
         trial_duration: 6300,
-        margin_top: ['300px','300px'],
-        margin_bottom: ['0px','0px'],
+        margin_top: ['0px','0px'],
+        margin_bottom: ['100px','100px'],
         margin_left: ['0px','200px'],
         margin_right: ['100px','0px'],
         response_possible: false,
-        post_trial_gap: 0,
+        post_trial_gap: 1000,
         response_ends_trial: false,
         set_background: cur_background,
-        on_start: function(plp_trials){
-          jsPsych.pluginAPI.getVideoBuffer('cur_left_video')
-          jsPsych.pluginAPI.getVideoBuffer('cur_right_video');
-        },
         data:{
           side1: data[i]['side1'],
           left_video: data[i]['left_video'],
@@ -221,66 +231,18 @@ for (var k = 0; k < images.length; k++) {
 
 
 var audio = [
-  "acrossTheUniverse_70dB000.wav",
-  "acrossTheUniverse_70dB001.wav",
-  "acrossTheUniverse_70dB002.wav",
-  "acrossTheUniverse_70dB003.wav",
-  "acrossTheUniverse_70dB004.wav",
-  "acrossTheUniverse_70dB005.wav",
-  "acrossTheUniverse_70dB006.wav",
-  "acrossTheUniverse_70dB007.wav",
-  "acrossTheUniverse_70dB008.wav",
-  "acrossTheUniverse_70dB009.wav",
-  "acrossTheUniverse_70dB010.wav",
-  "acrossTheUniverse_70dB011.wav",
-  "acrossTheUniverse_70dB012.wav",
-  "acrossTheUniverse_70dB013.wav",
-  "acrossTheUniverse_70dB014.wav",
-  "acrossTheUniverse_70dB015.wav",
-  "acrossTheUniverse_70dB016.wav",
-  "acrossTheUniverse_70dB017.wav",
-  "acrossTheUniverse_70dB018.wav",
-  "acrossTheUniverse_70dB019.wav",
-  "acrossTheUniverse_70dB020.wav",
-  "acrossTheUniverse_70dB021.wav",
-  "acrossTheUniverse_70dB022.wav",
-  "acrossTheUniverse_70dB023.wav",
-  "acrossTheUniverse_70dB024.wav",
-  "acrossTheUniverse_70dB025.wav",
-  "acrossTheUniverse_70dB026.wav",
-  "acrossTheUniverse_70dB027.wav",
-  "acrossTheUniverse_70dB028.wav",
-  "acrossTheUniverse_70dB028.wav",
-  "yellow_70dB000.wav",
-  "yellow_70dB001.wav",
-  "yellow_70dB002.wav",
-  "yellow_70dB003.wav",
-  "yellow_70dB004.wav",
-  "yellow_70dB005.wav",
-  "yellow_70dB006.wav",
-  "yellow_70dB007.wav",
-  "yellow_70dB008.wav",
-  "yellow_70dB009.wav",
-  "yellow_70dB010.wav",
-  "yellow_70dB011.wav",
-  "yellow_70dB012.wav",
-  "yellow_70dB013.wav",
-  "yellow_70dB014.wav",
-  "yellow_70dB015.wav",
-  "yellow_70dB016.wav",
-  "yellow_70dB017.wav",
-  "yellow_70dB018.wav",
-  "yellow_70dB019.wav",
-  "yellow_70dB020.wav",
-  "yellow_70dB021.wav",
-  "yellow_70dB022.wav",
-  "yellow_70dB023.wav",
-  "yellow_70dB024.wav",
-  "yellow_70dB025.wav",
-  "yellow_70dB026.wav",
-  "yellow_70dB027.wav",
-  "yellow_70dB028.wav",
-  "yellow_70dB028.wav",
+  "acrossTheUniverse_55dB000.wav",
+  "acrossTheUniverse_55dB004.wav",
+  "acrossTheUniverse_55dB008.wav",
+  "acrossTheUniverse_55dB011.wav",
+  "acrossTheUniverse_55dB016.wav",
+  "acrossTheUniverse_55dB028.wav",
+  "yellow_55dB000.wav",
+  "yellow_55dB009.wav",
+  "yellow_55dB013.wav",
+  "yellow_55dB017.wav",
+  "yellow_55dB026.wav",
+  "wow_cool_x4.wav",
   "check_out.wav",
   "apple_find.wav",
   "apple_look.wav",
@@ -323,17 +285,10 @@ var video = [
 var preload_vids=[];
 
 for (var m = 0; m < video.length; m++) {
-	preload_vids.push(videoExt+video[k]);
+	preload_vids.push(videoExt+video[m]);
 };
 
-jsPsych.pluginAPI.preloadVideo(preload_vids, function(){
-      startExperiment(data)
-    });
-
-//for (var e = 0 ; e < preload_vids.length;e++) {
-//  jsPsych.pluginAPI.getVideoBuffer(preload_vids[e]);
-//};
-
+console.log(preload_vids);
 
 function startExperiment(data) {
 	createTrials(data);
@@ -342,7 +297,7 @@ jsPsych.init({ //js.psych initializes
   timeline: timeline,
   preload_audio:preload_audio,
   preload_images:preload_images,
-  //preload_video: preload_videos,
+  preload_video: preload_vids,
 	default_iti: 300,
   on_finish: function() {
     jsPsych.data.displayData();

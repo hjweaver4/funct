@@ -14,7 +14,7 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
 	jsPsych.pluginAPI.registerPreload('audio-button-response-flexiblelocations', 'stimulus', 'audio');
 
 	plugin.info = {
-		name: 'audio-button-response',
+		name: 'audio-button-response-flexiblelocations',
 		description: '',
 		parameters: {
 			stimulus: {
@@ -92,6 +92,18 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
         default: false,
         description: 'If true, then the trial will end as soon as the audio file finishes playing.'
       },
+	  preload_video_button: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Preloaded Video Button',
+        default: false,
+        description: 'Set to true if button is a preloaded video.'
+	  },
+	  selector_ids: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Selector IDs for preloaded video',
+        default: null,
+        description: 'IDs corresponding to html of preloaded videos'
+	  }
     }
   }
 
@@ -144,6 +156,8 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
 	  html += '<div class="jspsych-audio-button-response-button" style="cursor: pointer; display: inline-block; margin-top:'+ trial.margin_top[i]+'; margin-bottom:'+ trial.margin_bottom[i]+'; margin-right:'+ trial.margin_right[i]+';margin-left:' + trial.margin_left[i]+'; '+'" id="jspsych-audio-button-response-button-' + i +'" data-choice="'+i+'">'+str+'</div>';
     }
 		html += '</div>';
+		
+		console.log(html);
 
 		//show prompt if there is one
 		if (trial.prompt !== null) {
@@ -158,6 +172,12 @@ jsPsych.plugins["audio-button-response-flexiblelocations"] = (function() {
         after_response(choice);
       });
     }
+	
+	if (trial.preload_video_button) {
+		for (var j = 0; j < trial.choices.length; j++) {
+			jsPsych.getDisplayElement().querySelector('#'+trial.selector_ids[j]).src = jsPsych.pluginAPI.getVideoBuffer(trial.choices[j]);
+		}
+	}
 
     // store response
     var response = {
