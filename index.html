@@ -31,9 +31,10 @@
 
 
 /* Enter subject id */
-var subject_id = jsPsych.data.getURLVariable('sub')
-//var trial_order = prompt("Order (1 or 2)","1");
-var trial_order = jsPsych.data.getURLVariable('order')
+var subject_id = prompt("Subject ID", "test")
+//var subject_id = jsPsych.data.getURLVariable('sub')
+var trial_order = prompt("Order (1 or 2)","1");
+//var trial_order = jsPsych.data.getURLVariable('order')
 
 // read from a public spreadsheet for  trials
 // use the publish link NOT the sharing link
@@ -72,7 +73,7 @@ function createTrials(data) {
 /* display start screen */
   var welcome = {
     type: "fullscreen",
-    message: "<br><br><br><p>Subject: "+subject_id.toString()+"</p><p>Order: "+trial_order.toString()+"</p><br>",
+    message: "",
     button_label: "Start",
     delay_after: 250
   }
