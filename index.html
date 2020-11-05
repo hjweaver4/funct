@@ -43,6 +43,10 @@ if (trial_order == "1") {
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder1.csv'
 } else if (trial_order =="2") {
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder2.csv'
+} else if (trial_order =="3") {
+  var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder3.csv'
+} else if (trial_order =="4") {
+  var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder4.csv'
 }
 
 //lwl orders
@@ -121,7 +125,7 @@ function createTrials(data) {
         stimulus: cur_stimulus,
         choices: cur_images,
         set_background: cur_background,
-        trial_duration: 4000,
+        trial_duration: 4500,
         //tiral_duration: 120000,
         margin_top: ['0px','0px'],
         margin_bottom: ['0px','0px'],
@@ -151,7 +155,7 @@ function createTrials(data) {
 		var selector_ids = ['left-video-play','right-video'];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
-		var selector_ids = ['left-video-play','right-video-play'];
+		    var selector_ids = ['left-video-play','right-video-play'];
       }
 
       // define plp trials
@@ -162,7 +166,7 @@ function createTrials(data) {
         choices:[cur_left_video,cur_right_video],
         button_html: button_html,
 			  selector_ids: selector_ids,
-        trial_duration: 6300,
+        trial_duration: 6400,
         margin_top: ['0px','0px'],
         margin_bottom: ['0px','0px'],
         margin_left: ['0px','200px'],
