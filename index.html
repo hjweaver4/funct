@@ -31,9 +31,10 @@
 
 
 /* Enter subject id */
-var subject_id = prompt("Enter subject id", "test");
+//var subject_id = prompt("Subject ID", "test")
+var subject_id = jsPsych.data.getURLVariable('sub')
 //var trial_order = prompt("Order (1 or 2)","1");
-var trial_order = prompt("Order(1 or 2)","1");
+var trial_order = jsPsych.data.getURLVariable('order')
 
 // read from a public spreadsheet for  trials
 // use the publish link NOT the sharing link
@@ -42,6 +43,10 @@ if (trial_order == "1") {
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder1.csv'
 } else if (trial_order =="2") {
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder2.csv'
+} else if (trial_order =="3") {
+  var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder3.csv'
+} else if (trial_order =="4") {
+  var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder4.csv'
 }
 
 //lwl orders
@@ -90,7 +95,7 @@ function createTrials(data) {
   var expLength = data.length;
   var audioExt="stimuli/sounds/"
   var imageStart='<img src= "stimuli/images/'
-  var imageStop='.jpg"  title = "" width="400" height="400">'
+  var imageStop='.jpg"  title = "" width="300" height="300">'
   var videoStart = "stimuli/videos/"
   var videoStop = ".mp4"
 
@@ -105,10 +110,10 @@ function createTrials(data) {
     var cur_side = data[i]['playing_side'];
 
     //define html buttons
-    var cur_left_video_button = '<div><video id="left-video" width="450" ></div>';
-    var cur_right_video_button = '<div><video id="right-video" width="450" ></div>';
-    var cur_left_video_button_play = '<div><video id="left-video-play" width="450" autoplay></div>';
-    var cur_right_video_button_play = '<div><video id="right-video-play" width="450" autoplay></div>';
+    var cur_left_video_button = '<div><video id="left-video" width="400" ></div>';
+    var cur_right_video_button = '<div><video id="right-video" width="400" ></div>';
+    var cur_left_video_button_play = '<div><video id="left-video-play" width="400" autoplay></div>';
+    var cur_right_video_button_play = '<div><video id="right-video-play" width="400" autoplay></div>';
 
     //define set up visual display
     var cur_background = data[i]['background'];
@@ -120,12 +125,12 @@ function createTrials(data) {
         stimulus: cur_stimulus,
         choices: cur_images,
         set_background: cur_background,
-        trial_duration: 4000,
+        trial_duration: 4500,
         //tiral_duration: 120000,
         margin_top: ['0px','0px'],
-        margin_bottom: ['100px','100px'],
-        margin_left: ['0px','200px'],
-        margin_right: ['89px','0px'],
+        margin_bottom: ['0px','0px'],
+        margin_left: ['0px','250px'],
+        margin_right: ['250px','0px'],
         response_ends_trial: false,
         data:{
     		left_image: data[i]['left_image'],
@@ -150,7 +155,7 @@ function createTrials(data) {
 		var selector_ids = ['left-video-play','right-video'];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
-		var selector_ids = ['left-video-play','right-video-play'];
+		    var selector_ids = ['left-video-play','right-video-play'];
       }
 
       // define plp trials
@@ -161,11 +166,11 @@ function createTrials(data) {
         choices:[cur_left_video,cur_right_video],
         button_html: button_html,
 			  selector_ids: selector_ids,
-        trial_duration: 6300,
+        trial_duration: 6400,
         margin_top: ['0px','0px'],
-        margin_bottom: ['100px','100px'],
+        margin_bottom: ['0px','0px'],
         margin_left: ['0px','200px'],
-        margin_right: ['100px','0px'],
+        margin_right: ['200px','0px'],
         response_possible: false,
         post_trial_gap: 1000,
         response_ends_trial: false,
@@ -298,7 +303,7 @@ jsPsych.init({ //js.psych initializes
   preload_audio:preload_audio,
   preload_images:preload_images,
   preload_video: preload_vids,
-	default_iti: 300,
+	default_iti: 500,
   on_finish: function() {
     //jsPsych.data.displayData();
   }
