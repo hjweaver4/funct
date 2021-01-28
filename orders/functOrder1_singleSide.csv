@@ -1,8 +1,8 @@
 block,trial_number,auditory_stimulus,left_image,right_image,target_label,left_video,right_video,target_side,correct_response,playing_side,background,trial_type
 7,29,acrossTheUniverse_55dB000,,,,Clouds6,Clouds6,,,both,black-background,PLP
 7,30,silence,black,black,,,,,,,black-background,ITI
-7,31,yellow_55dB000,,,,ball_atypical,ball_typical1,left,0,left,black-background,PLP
-7,32,yellow_55dB000,,,,ball_atypical2,ball_typical,left,0,right,black-background,PLP
+7,31,yellow_55dB000,,ball_typical1,,ball_atypical,,left,0,left,black-background,PLP
+7,32,yellow_55dB000,ball_atypical2,,,,ball_typical,left,0,right,black-background,PLP
 7,33,yellow_55dB000,,,,ball_atypical,ball_typical,left,0,both,black-background,PLP
 7,34,silence,black,black,,,,,,,black-background,ITI
 7,35,acrossTheUniverse_55dB004,,,,toothbrush_atypical,toothbrush_typical1,left,0,left,black-background,PLP
