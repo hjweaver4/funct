@@ -153,14 +153,14 @@ function createTrials(data) {
       //define which video plays first
       if (cur_side == "right") {
         //var button_html = [cur_left_video_button,cur_right_video_button_play];
-        var button_html = [cur_left_image_button,cur_right_video_button_play];
-		    var selector_ids = [,'right-video-play'];
-        var cur_choices = ["stimuli/images/'+data[i]['left_image']+'.jpg",cur_right_video];
+        var button_html = [cur_left_video_button,cur_right_video_button_play];
+		    var selector_ids = ['left-video','right-video-play'];
+        var cur_choices = [cur_left_video,cur_right_video];
       } else if (cur_side == "left"){
         //var button_html = [cur_left_video_button_play,cur_right_video_button];
         var button_html = [cur_left_video_button,cur_right_image_button];
-		    var selector_ids = ['left-video-play',];
-        var cur_choices = [cur_left_video,"stimuli/images/'+data[i]['right_image']+'.jpg"];
+		    var selector_ids = ['left-video-play','right-video'];
+        var cur_choices = [cur_left_video,cur_right_video];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
 		    var selector_ids = ['left-video-play','right-video-play'];
