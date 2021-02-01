@@ -40,11 +40,7 @@ var trial_order = jsPsych.data.getURLVariable('order')
 // use the publish link NOT the sharing link
 
 if (trial_order == "1") {
-<<<<<<< HEAD
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder1_singleSide.csv'
-=======
-	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder1.csv'
->>>>>>> parent of 2747012... update PLP side play
 } else if (trial_order =="2") {
 	var publicSpreadsheetUrl = 'https://hjweaver4.github.io/funct/orders/functOrder2.csv'
 } else if (trial_order =="3") {
@@ -120,8 +116,6 @@ function createTrials(data) {
     var cur_right_video_button = '<div><video id="right-video" width="400" ></div>';
     var cur_left_video_button_play = '<div><video id="left-video-play" width="400" autoplay></div>';
     var cur_right_video_button_play = '<div><video id="right-video-play" width="400" autoplay></div>';
-    var cur_left_image_button = '<div><img src="stimuli/images/'+data[i]['left_image']+'.jpg"  title = "" width="400"></div>'
-    var cur_right_image_button = '<div><img src="stimuli/images/'+data[i]['right_image']+'.jpg"  title = "" width="400"></div>'
 
     //define set up visual display
     var cur_background = data[i]['background'];
@@ -156,13 +150,11 @@ function createTrials(data) {
     } else {
       //define which video plays first
       if (cur_side == "right") {
-        //var button_html = [cur_left_video_button,cur_right_video_button_play];
         var button_html = [cur_left_video_button,cur_right_video_button_play];
 		    var selector_ids = ['left-video','right-video-play'];
         var cur_choices = [cur_left_video,cur_right_video];
       } else if (cur_side == "left"){
-        //var button_html = [cur_left_video_button_play,cur_right_video_button];
-        var button_html = [cur_left_video_button,cur_right_image_button];
+        var button_html = [cur_left_video_button_play,cur_right_video_button];
 		    var selector_ids = ['left-video-play','right-video'];
         var cur_choices = [cur_left_video,cur_right_video];
       } else {
