@@ -155,12 +155,12 @@ function createTrials(data) {
         //var button_html = [cur_left_video_button,cur_right_video_button_play];
         var button_html = [cur_left_image_button,cur_right_video_button_play];
 		    var selector_ids = [,'right-video-play'];
-        var cur_choices = [cur_left_image,cur_right_video];
+        var cur_choices = ["stimuli/images/'+data[i]['left_image']+'.jpg",cur_right_video];
       } else if (cur_side == "left"){
         //var button_html = [cur_left_video_button_play,cur_right_video_button];
         var button_html = [cur_left_video_button,cur_right_image_button];
 		    var selector_ids = ['left-video-play',];
-        var cur_choices = [cur_left_video,cur_right_image];
+        var cur_choices = [cur_left_video,"stimuli/images/'+data[i]['right_image']+'.jpg"];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
 		    var selector_ids = ['left-video-play','right-video-play'];
@@ -220,6 +220,10 @@ var images = [
 "ball01.jpg",
 "ball02.jpg",
 "ball03.jpg",
+"ball_atypical1",
+"ball_atypical2",
+"ball_typical1",
+"ball_typical2",
 "balloons_left.jpg",
 "balloons_right.jpg",
 "beach_left.jpg",
@@ -286,11 +290,7 @@ var video = [
   "apple_typical.mp4",
   "apple_atypical.mp4",
   "ball_typical.mp4",
-  "ball_typical1.mp4",
-  "ball_typical2.mp4",
   "ball_atypical.mp4",
-  "ball_atypical1.mp4",
-  "ball_atypical2.mp4",
   "crayon_typical.mp4",
   "crayon_atypical.mp4",
   "toothbrush_typical.mp4",
