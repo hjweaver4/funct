@@ -154,14 +154,17 @@ function createTrials(data) {
       if (cur_side == "right") {
         //var button_html = [cur_left_video_button,cur_right_video_button_play];
         var button_html = [cur_left_image_button,cur_right_video_button_play];
-		var selector_ids = ['left-image','right-video-play'];
+		    var selector_ids = ['left-image','right-video-play'];
+        var cur_choices = [cur_left_image,cur_right_video];
       } else if (cur_side == "left"){
         //var button_html = [cur_left_video_button_play,cur_right_video_button];
         var button_html = [cur_left_video_button,cur_right_image_button];
-		var selector_ids = ['left-video-play','right-image'];
+		    var selector_ids = ['left-video-play','right-image'];
+        var cur_choices = [cur_left_video,cur_right_image];
       } else {
         var button_html = [cur_left_video_button_play,cur_right_video_button_play];
 		    var selector_ids = ['left-video-play','right-video-play'];
+        var cur_choices = [cur_left_video,cur_right_video];
       }
 
       // define plp trials
@@ -169,7 +172,7 @@ function createTrials(data) {
         type: 'audio-button-response-flexiblelocations',
 			  preload_video_button: true,
         stimulus: cur_stimulus,
-        choices:[cur_left_image,cur_right_video],
+        choices: cur_choices,
         button_html: button_html,
 			  selector_ids: selector_ids,
         trial_ends_after_audio: true,
